@@ -266,9 +266,17 @@ Label 14px/600; di mobile input/select **16px** (mencegah auto-zoom iOS). Aksi f
 
 Empty state: `.empty-data-text` (italic, muted, tengah). Toast diposisikan **di atas** bottom nav 56px agar tidak tertutup.
 
-### 4.8 Navigasi bawah (mobile)
+### 4.8 Navigasi responsif
 
-Bottom tab bar 56px + safe-area. Menu panel terpisah dengan blur (4.5).
+- **Desktop (≥769px):** top bar 60px, sticky: brand kiri, link navigasi,
+  aksi utama kanan. Link aktif = warna primer (tanpa background pil —
+  cukup warna teks).
+- **Mobile (≤768px):** top bar disembunyikan; **bottom tab bar** fixed:
+  4–5 tab, ikon 22px + label 11px/600, min-height 56px per tab,
+  indikator aktif berupa bar 3px primer di atas tab. Padding bawah
+  `calc(6px + env(safe-area-inset-bottom))` untuk iPhone; body diberi
+  padding bawah agar konten tidak tertutup tab bar.
+- Satu daftar link untuk dua tampilan; state aktif sinkron.
 
 ---
 

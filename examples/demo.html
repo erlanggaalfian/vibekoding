@@ -34,6 +34,16 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 .btn:active { transform: scale(.97); }
 .btn.secondary { background: #f8fafc; border-color: var(--color-border); color: #475569; }
 .btn-sm { padding: 6px 12px; min-height: 32px; font-size: 13px; border-radius: 6px; }
+/* ============ NAVIGASI: desktop atas, mobile bawah ============ */
+.topnav { display: flex; align-items: center; gap: 20px; height: 60px; padding: 0 24px; background: var(--color-bg-content); border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 900; }
+.topnav .brand { font-size: 17px; font-weight: 800; color: var(--color-text-header); text-decoration: none; white-space: nowrap; }
+.topnav .brand b { color: var(--color-primary); }
+.topnav nav { display: flex; gap: 2px; }
+.topnav nav a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 600; color: var(--color-text-muted); text-decoration: none; }
+.topnav nav a:hover { color: var(--color-text-header); background: var(--color-bg-body); }
+.topnav nav a.active { color: var(--color-primary); }
+.topnav .spacer { flex: 1; }
+.tabbar { display: none; }
 /* ============ PER-ITEM ACCORDION (.m-item) ============ */
 .fail-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .fail-item { background: var(--color-danger-soft-bg); border: 1px solid var(--color-danger-border-soft); border-radius: 8px; padding: 10px 14px; font-size: 13px; }
@@ -82,6 +92,14 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
   .pagination > :first-child, .pagination > :last-child { display: none; }
   /* Input 16px anti-zoom iOS */
   .filter-row input, .filter-row select { font-size: 16px; }
+  /* Navigasi: topbar hilang, tab bar bawah muncul */
+  .topnav { display: none; }
+  body { padding-bottom: 84px; }
+  .tabbar { display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 900; background: var(--color-bg-content); border-top: 1px solid var(--color-border); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); }
+  .tabbar a { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 56px; padding: 8px 2px; border-radius: 8px; font-size: 11px; font-weight: 600; color: var(--color-text-muted); text-decoration: none; }
+  .tabbar a.active { color: var(--color-primary); }
+  .tabbar a.active::before { content: ''; position: absolute; top: 1px; width: 24px; height: 3px; border-radius: 999px; background: var(--color-primary); }
+  .tabbar svg { width: 22px; height: 22px; }
 }
 @media (min-width: 769px) {
   /* Desktop: dialog tengah */
@@ -95,6 +113,16 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 </style>
 </head>
 <body>
+<!-- Navigasi desktop: top bar (disembunyikan di mobile) -->
+<header class="topnav">
+  <a class="brand" href="#">Vibe<b>Koding</b></a>
+  <nav id="topnavLinks" aria-label="Navigasi utama">
+    <a href="#" class="active">Beranda</a><a href="#">Data</a><a href="#">Laporan</a><a href="#">Pengaturan</a>
+  </nav>
+  <span class="spacer"></span>
+  <a class="btn" href="#">Mulai</a>
+</header>
+
 <div class="wrap">
 
   <!-- Judul halaman: ketuk untuk keterangan (mobile) -->
@@ -138,6 +166,12 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
        <button class="btn secondary">Sekunder</button></p>
   </div>
 
+  <h2 class="section-title">Navigasi Responsif</h2>
+  <div class="panel">
+    <p class="chart-title">Desktop = top bar · Mobile = bottom tab bar</p>
+    <p style="font-size:13px;margin:0">Halaman ini sendiri memakainya: kecilkan jendela ke ≤768px — top bar hilang, tab bar bawah muncul dengan safe-area. Ketuk tab untuk pindah state aktif (contoh).</p>
+  </div>
+
   <h2 class="section-title">Pagination</h2>
   <div class="panel">
     <div class="pagination">
@@ -149,6 +183,14 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
   </div>
 
 </div>
+
+<!-- Navigasi mobile: bottom tab bar (disembunyikan di desktop) -->
+<nav class="tabbar" id="tabbar" aria-label="Navigasi utama">
+  <a href="#" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Beranda</a>
+  <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Data</a>
+  <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Laporan</a>
+  <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>Pengaturan</a>
+</nav>
 
 <!-- Bottom-sheet dialog -->
 <div class="m-confirm-overlay" id="mConfirmOverlay" role="dialog" aria-modal="true">
@@ -163,6 +205,19 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 </div>
 
 <script>
+/* Navigasi demo: pindah .active di dalam tiap nav */
+['topnavLinks', 'tabbar'].forEach(function (id) {
+  var nav = document.getElementById(id);
+  if (!nav) return;
+  nav.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    e.preventDefault();
+    nav.querySelectorAll('a').forEach(function (x) { x.classList.remove('active'); });
+    a.classList.add('active');
+  });
+});
+
 /* Kontrak [data-toggle]: dukung ID dipisah spasi */
 document.addEventListener('click', function (e) {
   var t = e.target.closest('[data-toggle]');
