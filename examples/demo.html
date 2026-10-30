@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NetBackup Design System — Demo</title>
+<style>
+/* ============ TOKENS (dari design-system.md §2) ============ */
+:root {
+  --color-primary: #0097FC;
+  --color-text-header: #1e293b; --color-text-body: #334155; --color-text-muted: #64748b;
+  --color-bg-body: #f4f7f9; --color-bg-content: #ffffff;
+  --color-danger-soft-bg: #fff5f5; --color-danger-border-soft: #fecaca; --color-danger-text: #991b1b;
+  --color-success-bg: #d1fae5; --color-success-text: #047857;
+  --color-border: #e2e8f0;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --shadow-card: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-sans); font-size: 16px; color: var(--color-text-body);
+       background: var(--color-bg-body); line-height: 1.7; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 24px 16px 64px; }
+h1.page-header { font-size: 28px; font-weight: 800; color: var(--color-text-header); margin: 0 0 4px; }
+p.page-subtitle { font-size: 14px; color: var(--color-text-muted); margin: 0 0 24px; }
+h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-header);
+  margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--color-border); }
+.panel { background: var(--color-bg-content); border: 1px solid var(--color-border);
+  border-radius: 12px; padding: 20px; box-shadow: var(--shadow-card); margin-bottom: 16px; }
+.chart-title { font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .04em; color: var(--color-text-muted); margin: 0 0 12px; }
+
+/* ============ BADGE & TOMBOL ============ */
+.badge { display: inline-block; padding: 5px 12px; border-radius: 999px; font-size: 11px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: .6px; }
+.badge.danger { background: #fee2e2; color: var(--color-danger-text); }
+.badge.success { background: var(--color-success-bg); color: var(--color-success-text); }
+.badge.gray { background: #e2e8f0; color: #475569; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 16px; min-height: 40px; border-radius: 8px; font-size: 14px; font-weight: 600;
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  background: var(--color-primary); color: #fff; transition: transform .1s var(--ease-out); }
+.btn:active { transform: scale(.97); }
+.btn.secondary { background: #f8fafc; border-color: var(--color-border); color: #475569; }
+.btn-sm { padding: 6px 12px; min-height: 32px; font-size: 13px; border-radius: 6px; }
+
+/* ============ PER-ITEM ACCORDION (.m-item) ============ */
+.fail-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.fail-item { background: var(--color-danger-soft-bg); border: 1px solid var(--color-danger-border-soft);
+  border-radius: 8px; padding: 10px 14px; font-size: 13px; }
+.fail-item .meta { font-size: 12px; color: var(--color-text-muted); margin-top: 4px; }
+
+/* ============ PAGINATION ============ */
+.pagination { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; margin-top: 16px; }
+.pagination .btn { min-width: 35px; }
+
+/* ============ FILTER ============ */
+.m-filter-head { display: none; }
+.filter-row { display: flex; gap: 8px; margin-bottom: 12px; }
+.filter-row input, .filter-row select { font-size: 14px; padding: 10px 12px; border: 1px solid var(--color-border);
+  border-radius: 8px; background: #fff; color: var(--color-text-body); }
+
+/* ============ BOTTOM-SHEET DIALOG ============ */
+.m-confirm-overlay { position: fixed; inset: 0; background: rgba(30,41,59,.5); display: none;
+  align-items: flex-end; justify-content: center; z-index: 1000; }
+.m-confirm-overlay.open { display: flex; }
+.m-confirm-box { background: #fff; border-radius: 16px 16px 0 0; padding: 20px; width: 100%;
+  max-width: 480px; animation: slideUp .2s var(--ease-out); }
+.m-confirm-box h3 { margin: 0 0 8px; font-size: 16px; font-weight: 700; color: var(--color-text-header); }
+.m-confirm-box p { margin: 0 0 16px; font-size: 14px; }
+.m-confirm-actions { display: grid; gap: 10px; }
+.m-confirm-actions .btn { width: 100%; min-height: 48px; }
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } }
+
+/* ============ MOBILE (max-width: 768px) ============ */
+@media (max-width: 768px) {
+  h1.page-header { font-size: 20px; }
+  p.page-subtitle { font-size: 13px; }
+  h2.section-title { font-size: 18px; }
+  .chart-title { font-size: 12px; }
+
+  /* Per-item accordion aktif */
+  .m-item { cursor: pointer; }
+  .m-item-title { display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    font-weight: 600; color: var(--color-text-header); }
+  .m-item-title::after { content: ''; flex-shrink: 0; width: 8px; height: 8px;
+    border-right: 2px solid var(--color-text-muted); border-bottom: 2px solid var(--color-text-muted);
+    transform: rotate(45deg); transition: transform .2s var(--ease-out); }
+  .m-item.is-open .m-item-title::after { transform: rotate(-135deg); }
+  .m-item .m-item-extra { display: none; }
+  .m-item.is-open .m-item-extra { display: block; }
+  .m-item.is-open .m-item-extra.btn { display: flex; width: 100%; }
+
+  /* Filter collapsible */
+  .m-filter-head { display: flex; align-items: center; justify-content: space-between; width: 100%;
+    padding: 10px 12px; border: 1px solid var(--color-border); border-radius: 8px;
+    background: #fff; font-size: 14px; font-weight: 600; color: var(--color-text-header); cursor: pointer; }
+  .m-filter-head::after { content: ''; width: 8px; height: 8px; border-right: 2px solid var(--color-text-muted);
+    border-bottom: 2px solid var(--color-text-muted); transform: rotate(45deg); transition: transform .2s; }
+  .m-filter-head.is-open::after { transform: rotate(-135deg); }
+  .m-filter-more { display: none; }
+  .m-filter-more.is-open { display: block; }
+
+  /* Pagination mobile */
+  .pagination { gap: 6px; }
+  .pagination .btn { min-width: 40px; min-height: 40px; font-size: 14px; padding: 6px 8px; }
+  .pagination > :first-child, .pagination > :last-child { display: none; }
+
+  /* Input 16px anti-zoom iOS */
+  .filter-row input, .filter-row select { font-size: 16px; }
+}
+@media (min-width: 769px) {
+  /* Desktop: dialog tengah */
+  .m-confirm-overlay { align-items: center; padding: 24px; }
+  .m-confirm-box { border-radius: 12px; animation: none; }
+  .m-filter-more { display: block !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Judul halaman: ketuk untuk keterangan (mobile) -->
+  <div class="page-header-container m-item" aria-expanded="false">
+    <h1 class="page-header m-item-title">Demo Design System</h1>
+    <p class="page-subtitle m-item-extra">Contoh pola NetBackup — kecilkan jendela ke ≤768px untuk melihat perilaku mobile.</p>
+  </div>
+
+  <h2 class="section-title">Per-item Accordion</h2>
+  <div class="panel">
+    <p class="chart-title">Kegagalan Backup</p>
+    <ul class="fail-list">
+      <li class="fail-item m-item" aria-expanded="false">
+        <span class="m-item-title"><span>Dist-11</span></span>
+        <div class="meta m-item-extra">10.5.5.152 · 25/10/2026 23:01<br>Backup terakhir masih gagal — perlu tindakan.</div>
+        <a class="btn btn-sm secondary m-item-extra" style="margin-top:8px">Detail</a>
+      </li>
+      <li class="fail-item m-item" aria-expanded="false">
+        <span class="m-item-title"><span>OLT ZTE C320</span></span>
+        <div class="meta m-item-extra">10.10.15.146 · 25/10/2026 02:23<br>Riwayat kegagalan — backup terakhir sudah sukses.</div>
+        <a class="btn btn-sm secondary m-item-extra" style="margin-top:8px">Detail</a>
+      </li>
+    </ul>
+  </div>
+
+  <h2 class="section-title">Filter Collapsible</h2>
+  <div class="panel">
+    <button class="m-filter-head" data-toggle="demo-filter" aria-expanded="false"><span>Filter</span></button>
+    <div class="m-filter-more" id="demo-filter" style="margin-top:8px">
+      <div class="filter-row">
+        <input placeholder="Cari…" aria-label="Cari">
+        <select aria-label="Status"><option>Semua</option><option>Aktif</option></select>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Badge &amp; Tombol</h2>
+  <div class="panel">
+    <p><span class="badge danger">Gagal</span> <span class="badge success">Sukses</span> <span class="badge gray">Riwayat</span></p>
+    <p><button class="btn" id="demo-confirm">Hapus (mConfirm)</button>
+       <button class="btn secondary">Sekunder</button></p>
+  </div>
+
+  <h2 class="section-title">Pagination</h2>
+  <div class="panel">
+    <div class="pagination">
+      <a class="btn btn-sm secondary">«</a><a class="btn btn-sm secondary">‹</a>
+      <a class="btn btn-sm secondary">1</a><a class="btn btn-sm">2</a><a class="btn btn-sm secondary">3</a>
+      <a class="btn btn-sm secondary">4</a><a class="btn btn-sm secondary">5</a>
+      <a class="btn btn-sm secondary">›</a><a class="btn btn-sm secondary">»</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Bottom-sheet dialog -->
+<div class="m-confirm-overlay" id="mConfirmOverlay" role="dialog" aria-modal="true">
+  <div class="m-confirm-box">
+    <h3 id="mConfirmTitle"></h3>
+    <p id="mConfirmMsg"></p>
+    <div class="m-confirm-actions">
+      <button class="btn" id="mConfirmOk" style="background:#dc2626">Ya, hapus</button>
+      <button class="btn secondary" id="mConfirmCancel">Batal</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Kontrak [data-toggle]: dukung ID dipisah spasi */
+document.addEventListener('click', function (e) {
+  var t = e.target.closest('[data-toggle]');
+  if (t) {
+    t.getAttribute('data-toggle').split(/\s+/).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.classList.toggle('is-open');
+    });
+    t.classList.toggle('is-open');
+    t.setAttribute('aria-expanded', t.classList.contains('is-open'));
+    return;
+  }
+  /* Kontrak .m-item: abaikan ketuk pada link/tombol/input */
+  var item = e.target.closest('.m-item');
+  if (item && !e.target.closest('a,button,input,select,textarea')) {
+    item.classList.toggle('is-open');
+    item.setAttribute('aria-expanded', item.classList.contains('is-open'));
+  }
+});
+
+/* window.mConfirm -> Promise<boolean>; klik di luar hanya menutup */
+window.mConfirm = function (opts) {
+  return new Promise(function (resolve) {
+    var ov = document.getElementById('mConfirmOverlay');
+    document.getElementById('mConfirmTitle').textContent = opts.title || 'Konfirmasi';
+    document.getElementById('mConfirmMsg').textContent = opts.message || '';
+    var okBtn = document.getElementById('mConfirmOk');
+    var cancelBtn = document.getElementById('mConfirmCancel');
+    okBtn.textContent = opts.confirmText || 'Ya';
+    okBtn.style.background = opts.danger === false ? '' : '#dc2626';
+    cancelBtn.textContent = opts.cancelText || 'Batal';
+    ov.classList.add('open');
+    function done(v) { ov.classList.remove('open'); resolve(v); }
+    okBtn.onclick = function () { done(true); };
+    cancelBtn.onclick = function () { done(false); };
+    ov.onclick = function (ev) {
+      if (ev.target === ov) { ev.preventDefault(); ev.stopPropagation(); done(false); }
+    };
+  });
+};
+document.getElementById('demo-confirm').addEventListener('click', async function () {
+  var ok = await window.mConfirm({ title: 'Hapus item?', message: 'Tindakan ini tidak bisa dibatalkan.', confirmText: 'Ya, hapus', danger: true });
+  alert(ok ? 'Dihapus (contoh)' : 'Dibatalkan');
+});
+</script>
+</body>
+</html>
