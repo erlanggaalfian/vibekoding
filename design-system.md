@@ -273,8 +273,9 @@ Empty state: `.empty-data-text` (italic, muted, tengah). Toast diposisikan **di 
 ### 4.8 Navigasi responsif
 
 - **Desktop (≥769px):** top bar 60px, sticky: brand kiri, link navigasi,
-  aksi utama kanan. Link aktif = warna primer (tanpa background pil —
-  cukup warna teks).
+  aksi utama kanan. Isi top bar dibatasi max-width yang sama dengan
+  konten halaman (rata kiri-kanan dengan isi). Link aktif = warna
+  primer (tanpa background pil — cukup warna teks).
 - **Mobile (≤768px):** top bar disembunyikan; **bottom tab bar** fixed:
   4–5 tab, ikon 22px + label 11px/600, min-height 56px per tab,
   indikator aktif berupa bar 3px primer di atas tab. Padding bawah

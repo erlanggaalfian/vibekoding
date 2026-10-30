@@ -35,7 +35,8 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 .btn.secondary { background: #f8fafc; border-color: var(--color-border); color: #475569; }
 .btn-sm { padding: 6px 12px; min-height: 32px; font-size: 13px; border-radius: 6px; }
 /* ============ NAVIGASI: desktop atas, mobile bawah ============ */
-.topnav { display: flex; align-items: center; gap: 20px; height: 60px; padding: 0 24px; background: var(--color-bg-content); border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 900; }
+.topnav { background: var(--color-bg-content); border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 900; }
+.topnav-inner { display: flex; align-items: center; gap: 20px; height: 60px; max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 .topnav .brand { font-size: 17px; font-weight: 800; color: var(--color-text-header); text-decoration: none; white-space: nowrap; }
 .topnav .brand b { color: var(--color-primary); }
 .topnav nav { display: flex; gap: 2px; }
@@ -147,12 +148,14 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 <body>
 <!-- Navigasi desktop: top bar (disembunyikan di mobile) -->
 <header class="topnav">
-  <a class="brand" href="#">Vibe<b>Koding</b></a>
-  <nav id="topnavLinks" aria-label="Navigasi utama">
-    <a href="#" class="active">Beranda</a><a href="#">Data</a><a href="#">Laporan</a><a href="#">Pengaturan</a>
-  </nav>
-  <span class="spacer"></span>
-  <a class="btn" href="#">Mulai</a>
+  <div class="topnav-inner">
+    <a class="brand" href="#">Vibe<b>Koding</b></a>
+    <nav id="topnavLinks" aria-label="Navigasi utama">
+      <a href="#" class="active">Beranda</a><a href="#">Data</a><a href="#">Laporan</a><a href="#">Pengaturan</a>
+    </nav>
+    <span class="spacer"></span>
+    <a class="btn" href="#">Mulai</a>
+  </div>
 </header>
 
 <div class="wrap">
