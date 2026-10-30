@@ -1,0 +1,5 @@
+name: "base-design-system"
+title: "Base Design System"
+description: "Menerapkan base design system ke proyek web: mobile app-like (collapsed-first accordion, bottom-sheet dialog, frosted panel) dengan desktop yang konsisten — dipakai saat membuat atau menyeragamkan tampilan web, dashboard, atau aplikasi."
+category: "Work and knowledge"
+include_in_prompt: false

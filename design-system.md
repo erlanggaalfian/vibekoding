@@ -1,8 +1,8 @@
-# NetBackup Design System
+# Base Design System
 
-Sistem desain aplikasi web NetBackup — dipakai agar tampilan **konsisten di mobile maupun desktop**, dengan rasa seperti aplikasi mobile native di layar kecil. Dokumen ini adalah acuan tunggal: kirim file ini saja ketika ingin menerapkan gaya yang sama ke proyek lain (mis. Nexfiber).
+Base design system untuk aplikasi web — dipakai agar tampilan **konsisten di mobile maupun desktop**, dengan rasa seperti aplikasi mobile native di layar kecil. Dokumen ini adalah acuan tunggal: kirim file ini saja ketika ingin menerapkan gaya yang sama ke proyek lain.
 
-> Sumber: `style/global.css` + pola interaksi di `web/includes/footer.php`, NetBackup, per 2026-10-31.
+> Disarikan dari sebuah aplikasi dashboard produksi, per 2026-10-31.
 
 ---
 

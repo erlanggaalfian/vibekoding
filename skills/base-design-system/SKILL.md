@@ -1,6 +1,6 @@
-# NetBackup Design System
+# Base Design System
 
-Terapkan design system NetBackup (mobile app-like + desktop konsisten) ke proyek web apa pun: pakai tokens, kontrak interaksi, dan pola komponen dari `design-system.md`.
+Terapkan base design system (mobile app-like + desktop konsisten) ke proyek web apa pun: pakai tokens, kontrak interaksi, dan pola komponen dari `design-system.md`.
 
 ## Terapkan tokens dulu
 
