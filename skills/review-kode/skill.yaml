@@ -1,5 +1,5 @@
-name: "ponytail-review"
-title: "Ponytail Review"
+name: "review-kode"
+title: "Review Kode"
 description: "Review kualitas sebuah perubahan kode ala senior dev: benar, aman, tahan beban, teruji, cepat, dan ramping."
 category: "Work and knowledge"
 include_in_prompt: false

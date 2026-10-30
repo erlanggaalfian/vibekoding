@@ -1,37 +1,55 @@
 # vibekoding
 
-Koleksi kebutuhan "vibe coding": design system, skill, dan contoh kode yang bisa dipakai ulang di proyek web.
-
-## Isi
-
-| Path | Keterangan |
-|---|---|
-| `design-system.md` | **Acuan desain utama.** Base design system: tokens (warna, tipografi, shadow, motion), pola interaksi mobile app-like (collapsed-first accordion, bottom-sheet dialog, filter lipat), dan komponen. Kirim file ini saja saat ingin menerapkan gaya yang sama ke proyek lain. |
-| `skills/base-design-system/` | Skill untuk Muse: cara menerapkan base design ini ke proyek web apa pun (tokens → kontrak JS → pola per halaman → verifikasi). |
-| `examples/demo.html` | Contoh mandiri (satu file, tanpa dependency): accordion per-item, filter collapsible, bottom-sheet `mConfirm`, badge, tombol, pagination, judul ketuk. Buka di browser; kecilkan ke ≤768px untuk melihat perilaku mobile. |
-
-## Skills
-
-Koleksi skill untuk agen coding. Skill bertanda ✦ sudah diadaptasi ke base design system repo ini (ada bagian "Adaptasi Base Design" di `SKILL.md`-nya).
-
-| Skill | Sumber | Keterangan |
-|---|---|---|
-| `skills/base-design-system/` | repo ini | Menerapkan base design system ke proyek web apa pun. |
-| `skills/anti-slop-design/` ✦ | Ferousco-dev/anti-slop-design (MIT) | Menghilangkan desain generik AI ("AI slop") dari frontend web/mobile. |
-| `skills/design-taste-frontend/` ✦ | Leonxlnx/taste-skill (MIT) | Art direction anti-slop: landing page, dashboard, layar admin. |
-| `skills/frontend-design/` ✦ | anthropics/skills | Arah visual yang khas saat membangun/membongkar UI, anti pola templated. |
-| `skills/web-design-guidelines/` ✦ | vercel-labs/agent-skills | Review UI terhadap Web Interface Guidelines Vercel (aksesibilitas/UX). |
-| `skills/caveman/` | JuliusBrussee/caveman | Gaya jawab ringkas, hemat token, tanpa mengubah kode/command. |
-| `skills/ponytail/` | DietrichGebert/ponytail (MIT) | "Lazy senior dev": solusi terkecil yang benar-benar bekerja, anti over-engineering. |
-| `skills/ponytail-review/` ✦ | DietrichGebert/ponytail | Review perubahan: benar, aman, tahan beban, teruji, cepat, ramping. |
-| `skills/ponytail-audit/` ✦ | DietrichGebert/ponytail | Audit seluruh repo: bug, keamanan, beban, tes, dan apa yang bisa dihapus. |
-| `skills/codebase-design/` ✦ | mattpocock/skills | Merancang deep module: interface kecil, perilaku besar, seam bersih. |
-| `skills/micro-interaction/` ✦ | repo ini (dibuat baru) | Gerakan kecil yang simpel dan bagus: button press, hover lift, chevron, sheet, toast — 100–200ms. |
-
-Isi tiap skill (kecuali bagian adaptasi lokal) dipertahankan verbatim dari sumbernya; lisensi asli disertakan bila ada.
+Sistem lengkap untuk membangun aplikasi web: **satu base design system +
+skill-skill pendukung** — dari arah visual sampai quality gate. Tunjuk repo
+ini ke AI agent, dan seluruh sistem langsung diterapkan ke proyek baru.
 
 ## Cara pakai
 
-1. **Mau desain seperti ini di proyek baru?** Kirim `design-system.md` ke chat.
-2. **Mau Muse yang menerapkan?** Skill `base-design-system` sudah mengajarkan polanya.
-3. **Mau lihat contoh hidup?** Buka `examples/demo.html`.
+| Kamu mau... | Caranya |
+|---|---|
+| AI langsung menerapkan semuanya | Tunjuk repo ini / bilang **"pakai vibekoding"** → skill `vibekoding` mengatur urutannya |
+| Hanya desainnya saja | Kirim `design-system.md` ke chat |
+| Lihat contoh hidup | Buka `examples/demo.html` di browser (kecilkan ke ≤768px untuk mode mobile) |
+| Pasang satu skill saja | Salin folder skill yang diinginkan ke `~/.agents/skills/` / folder skill agenmu |
+
+## Isi repo
+
+| Path | Keterangan |
+|---|---|
+| `design-system.md` | **Acuan desain utama.** Tokens (warna, tipografi, shadow, motion), pola interaksi mobile app-like (collapsed-first accordion, bottom-sheet dialog, filter lipat), komponen, checklist. |
+| `skills/vibekoding/` | **Skill master.** Satu pintu masuk: baca desain → terapkan dengan urutan → verifikasi. |
+| `skills/base-design-system/` | Cara menerapkan base design ke proyek web apa pun (tokens → kontrak JS → pola per halaman → verifikasi). |
+| `examples/demo.html` | Contoh mandiri, satu file tanpa dependency: accordion, filter collapsible, bottom-sheet `mConfirm`, badge, tombol, pagination, judul ketuk. |
+
+## Skills
+
+Semua skill memakai **nama sendiri** (bukan nama upstream) agar tidak bentrok
+bila skill aslinya juga terinstal. Skill bertanda ✦ sudah diadaptasi ke base
+design repo ini (bagian "Adaptasi Base Design" di `SKILL.md`-nya).
+
+| Skill | Diadopsi dari | Keterangan |
+|---|---|---|
+| `skills/vibekoding/` | repo ini | Master: terapkan seluruh sistem ke proyek baru |
+| `skills/base-design-system/` | repo ini | Menerapkan base design system ke proyek web apa pun |
+| `skills/desain-bersih/` ✦ | Ferousco-dev/anti-slop-design (MIT) | Menghilangkan desain generik AI ("AI slop") dari frontend web/mobile |
+| `skills/selera-visual/` ✦ | Leonxlnx/taste-skill (MIT) | Art direction anti-slop: landing page, dashboard, layar admin |
+| `skills/arah-desain/` ✦ | anthropics/skills | Arah visual yang khas saat membangun/membongkar UI, anti pola templated |
+| `skills/standar-web/` ✦ | vercel-labs/agent-skills | Review UI terhadap Web Interface Guidelines (aksesibilitas/UX) |
+| `skills/micro-interaction/` ✦ | repo ini (dibuat baru) | Gerakan kecil yang simpel: button press, hover lift, chevron, sheet, toast — 100–200ms |
+| `skills/modul-dalam/` ✦ | mattpocock/skills | Merancang deep module: interface kecil, perilaku besar, seam bersih |
+| `skills/kode-minimal/` | DietrichGebert/ponytail (MIT) | "Lazy senior dev": solusi terkecil yang benar-benar bekerja, anti over-engineering |
+| `skills/review-kode/` ✦ | DietrichGebert/ponytail | Review perubahan: benar, aman, tahan beban, teruji, cepat, ramping |
+| `skills/audit-kode/` ✦ | DietrichGebert/ponytail | Audit seluruh repo: bug, keamanan, beban, tes, dan apa yang bisa dihapus |
+| `skills/jawaban-ringkas/` | JuliusBrussee/caveman | Gaya jawab ringkas, hemat token, fakta teknis tetap utuh |
+
+Isi tiap skill adopsi dipertahankan dari sumbernya (bagian adaptasi lokal
+ditandai jelas); lisensi asli disertakan bila ada. Atribusi lengkap ada di
+tiap folder skill.
+
+## Prinsip desain
+
+- **Mobile app-like, desktop konsisten** — collapsed-first di layar kecil, pixel-identical di desktop.
+- **Anti-slop** — tanpa gradient generik, tanpa animasi denyut, tanpa pola template AI.
+- **Satu pola, satu tempat** — kontrak interaksi dipakai ulang, bukan diciptakan ulang.
+- **Tokens menang** — warna, tipografi, dan motion selalu dari design system, bukan hardcode.

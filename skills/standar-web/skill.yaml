@@ -1,5 +1,5 @@
-name: "web-design-guidelines"
-title: "Web Design Guidelines"
+name: "standar-web"
+title: "Standar Web"
 description: "Meninjau kode UI terhadap Web Interface Guidelines Vercel, dipakai saat diminta review UI, cek aksesibilitas, audit desain, atau audit UX."
 category: "Work and knowledge"
 include_in_prompt: false

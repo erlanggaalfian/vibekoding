@@ -1,5 +1,5 @@
 ---
-name: anti-slop-design
+name: desain-bersih
 description: Eliminates generic AI-generated design ("AI slop") from any front-end you build or review — web or mobile. Use whenever generating, reviewing, refactoring, or critiquing a website, landing page, dashboard, web app, iOS or Android app, React Native or Flutter screen, component, design system, or micro-interaction — and whenever the user says a design "looks AI-generated", "looks generic", "looks like a template", "needs personality", or asks to make an interface premium, handcrafted, or distinctive. Also use before emitting any frontend code that involves color, typography, layout, spacing, motion, or copy decisions.
 license: MIT
 ---

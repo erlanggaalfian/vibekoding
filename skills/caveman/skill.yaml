@@ -1,5 +1,0 @@
-name: "caveman"
-title: "Caveman"
-description: "Gaya jawab ringkas ala caveman: answer first, tanpa basa-basi, semua fakta teknis tetap utuh — dipakai saat ingin respons hemat token (/caveman, caveman mode)."
-category: "Work and knowledge"
-include_in_prompt: false

@@ -1,0 +1,5 @@
+name: "jawaban-ringkas"
+title: "Jawaban Ringkas"
+description: "Gaya jawab ringkas ala caveman: answer first, tanpa basa-basi, semua fakta teknis tetap utuh — dipakai saat ingin respons hemat token (/jawaban-ringkas, jawaban-ringkas)."
+category: "Work and knowledge"
+include_in_prompt: false

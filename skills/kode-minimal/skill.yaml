@@ -1,5 +1,5 @@
-name: "ponytail"
-title: "Ponytail"
+name: "kode-minimal"
+title: "Kode Minimal"
 description: "Mode senior dev yang malas: perubahan terkecil yang menyelesaikan tugas sepenuhnya (YAGNI, tanpa over-engineering), dipakai untuk coding, fixing, refactor, review, atau saat diminta solusi paling sederhana."
 category: "Work and knowledge"
 include_in_prompt: false
