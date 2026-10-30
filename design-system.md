@@ -246,9 +246,13 @@ border-radius: 8px; padding: 10px 14px;
 
 Daftar kartu: `display: flex; flex-direction: column; gap: 8px`.
 
-### 4.4 Pagination (mobile)
+### 4.4 Pagination
 
-Tombol 40×40px, font 14px, gap 6px. Tombol `<<` `>>` disembunyikan di mobile (7 tombol muat 1 baris di 360px). Satu fungsi render bersama untuk semua halaman.
+Desktop: tombol 35×32px, font 13px, tampil lengkap (`« ‹ 1 2 3 … › »`).
+Mobile: tombol 40×40px, font 14px, gap 6px — hanya tampil `‹`,
+halaman aktif, `›`, sehingga **selalu satu baris** berapa pun jumlah
+halamannya. Halaman aktif ditandai `aria-current="page"`.
+Satu fungsi render bersama untuk semua halaman.
 
 ### 4.5 Panel kaca buram (menu mobile)
 

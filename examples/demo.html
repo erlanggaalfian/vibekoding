@@ -108,10 +108,13 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
   .m-filter-head.is-open::after { transform: rotate(-135deg); }
   .m-filter-more { display: none; }
   .m-filter-more.is-open { display: block; }
-  /* Pagination mobile */
-  .pagination { gap: 6px; }
+  /* Pagination mobile: ringkas ‹ aktif ›, selalu satu baris */
+  .pagination { gap: 6px; flex-wrap: nowrap; }
   .pagination .btn { min-width: 40px; min-height: 40px; font-size: 14px; padding: 6px 8px; }
-  .pagination > :first-child, .pagination > :last-child { display: none; }
+  .pagination > a { display: none; }
+  .pagination > a:nth-child(2),
+  .pagination > a[aria-current="page"],
+  .pagination > a:nth-last-child(2) { display: inline-flex; }
   /* Input 16px anti-zoom iOS */
   .filter-row input, .filter-row select { font-size: 16px; }
   /* Toast di atas bottom tab bar */
@@ -239,9 +242,10 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 
   <h2 class="section-title">Pagination</h2>
   <div class="panel">
+    <p class="chart-title">Desktop: lengkap · Mobile: ringkas ‹ aktif ›</p>
     <div class="pagination">
       <a class="btn btn-sm secondary">«</a><a class="btn btn-sm secondary">‹</a>
-      <a class="btn btn-sm secondary">1</a><a class="btn btn-sm">2</a><a class="btn btn-sm secondary">3</a>
+      <a class="btn btn-sm secondary">1</a><a class="btn btn-sm" aria-current="page">2</a><a class="btn btn-sm secondary">3</a>
       <a class="btn btn-sm secondary">4</a><a class="btn btn-sm secondary">5</a>
       <a class="btn btn-sm secondary">›</a><a class="btn btn-sm secondary">»</a>
     </div>
