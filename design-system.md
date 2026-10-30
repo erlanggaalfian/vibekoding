@@ -97,8 +97,8 @@ komponen ikut berubah langsung mengikuti palet.
   --color-danger: #dc2626;   --color-danger-bg: #fee2e2;   --color-danger-text: #991b1b;     /* h≈0° */
   --color-danger-soft-bg: #fff5f5;      /* kartu peringatan lembut */
   --color-danger-border-soft: #fecaca;
-  --color-info-bg: #e0f2fe;  --color-info-text: #0284c7;    /* h≈205° */
-  --color-warning-bg: #fef9c3; --color-warning-text: #a16207; /* h≈42° */
+  --color-info: #1392ec;  --color-info-bg: #e0f2fe;  --color-info-text: #0284c7;    /* h≈205° */
+  --color-warning: #f3b116;  --color-warning-bg: #fef9c3; --color-warning-text: #a16207; /* h≈42° */
 
   /* Border & garis */
   --color-border: #e2e8f0;
