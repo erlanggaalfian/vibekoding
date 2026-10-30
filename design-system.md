@@ -18,35 +18,92 @@ Base design system untuk aplikasi web — dipakai agar tampilan **konsisten di m
 
 ## 2. Design Tokens
 
-### 2.1 Warna
+### 2.1 Warna — sistem palet, bukan warna tetap
+
+Warna primer **tidak dikunci** ke satu hex. Pilih satu **warna dasar**
+(base) untuk tiap proyek, lalu turunkan seluruh palet darinya memakai
+aturan roda warna di bawah. Yang dikunci adalah **peran & relasi antar
+warna**, bukan nilai hex-nya.
+
+**Contoh bawaan** (hanya contoh — boleh diganti): primer `#0097FC`.
+
+#### Aturan roda warna
+
+1. **Warna dasar → skala primer (50–900).** Pertahankan hue, ubah
+   lightness bertahap; saturasi sedikit turun di ujung terang dan
+   sedikit naik di ujung gelap:
+
+   | 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 |
+   |---|---|---|---|---|---|---|---|---|---|
+   | l 97% | l 92% | l 82% | l 70% | l 58% | = warna dasar | l 38% | l 30% | l 24% | l 18% |
+
+   `--color-primary` = 500 (atau 600 bila butuh kontras lebih ke teks
+   putih); `--color-primary-hover` = 600/700.
+2. **Aksen via harmoni roda warna.** Pilih satu per proyek:
+   - *Monokromatik* (default, paling aman): aksen = primer 700.
+   - *Analogous:* hue ± 30° dari primer.
+   - *Komplementer:* hue + 180° — pakai hemat, hanya untuk sorotan kecil.
+   - *Triadik:* hue + 120° dan + 240°.
+3. **Netral mengikuti hue dasar** (tinted, bukan abu mati): saturasi
+   10–15%, skala lightness untuk teks / latar / border.
+4. **Warna status di posisi tetap roda warna** — jangan digeser mengikuti
+   primer: success h≈150°, warning h≈42°, danger h≈0°, info h≈205°.
+   Tiap status punya tiga peran: `bg` (terang), `text` (gelap),
+   `border-soft`.
+5. **Kontras.** Teks di atas primer ≥ 4.5:1 (putih atau teks gelap,
+   pilih menurut luminansi). Teks muted di atas latar ≥ 4.5:1.
+
+#### Cara cepat: generator palet
+
+Buka `examples/palette-generator.html` — pilih warna dasar + harmoni,
+salin blok CSS variables yang dihasilkan (nama token sama persis dengan
+di bawah), tempel sebagai `:root` di stylesheet proyek. Pratinjau
+komponen ikut berubah langsung mengikuti palet.
 
 ```css
-/* Primer */
---color-primary: #0097FC;            /* biru utama */
---color-primary-hover: #2a72bb;
---color-primary-text: #ffffff;
+/* Contoh hasil generator untuk warna dasar #0097FC (h 204°) */
+:root {
+  /* Skala primer — hue tetap, lightness bertahap */
+  --color-primary-50: #f4f8fb;
+  --color-primary-100: #ddedf8;
+  --color-primary-200: #b6ddf7;
+  --color-primary-300: #77c4f8;
+  --color-primary-400: #38acfa;
+  --color-primary-500: #0097fc;   /* = warna dasar */
+  --color-primary-600: #0078c8;
+  --color-primary-700: #0060a0;
+  --color-primary-800: #004b7d;
+  --color-primary-900: #00395f;
 
-/* Teks */
---color-text-header: #1e293b;        /* slate-800 */
---color-text-body: #334155;          /* slate-700 */
---color-text-muted: #64748b;         /* slate-500 */
+  --color-primary: var(--color-primary-500);
+  --color-primary-hover: var(--color-primary-600);
+  --color-primary-text: #16202e;  /* putih hanya 3.07:1 — teks gelap 5.34:1 ✓ */
 
-/* Latar */
---color-bg-body: #f4f7f9;
---color-bg-content: #ffffff;
---color-bg-hover: #f8fafc;
+  /* Aksen (contoh: monokromatik) */
+  --color-accent: var(--color-primary-700);
 
-/* Status */
---color-success: #10b981;  --color-success-bg: #d1fae5;  --color-success-text: #047857;
---color-danger: #dc2626;   --color-danger-bg: #fee2e2;   --color-danger-text: #991b1b;
---color-danger-soft-bg: #fff5f5;     /* kartu peringatan lembut */
---color-danger-border-soft: #fecaca;
---color-info-bg: #e0f2fe;  --color-info-text: #0284c7;
---color-warning-bg: #fef9c3; --color-warning-text: #a16207;
+  /* Teks — netral mengikuti hue dasar, saturasi ±12% */
+  --color-text-header: #1e293b;
+  --color-text-body: #334155;
+  --color-text-muted: #64748b;
 
-/* Border & garis */
---color-border: #e2e8f0;
---color-metric-border: #eaeff5;
+  /* Latar */
+  --color-bg-body: #f4f7f9;
+  --color-bg-content: #ffffff;
+  --color-bg-hover: #f8fafc;
+
+  /* Status — hue tetap di roda warna */
+  --color-success: #10b981;  --color-success-bg: #d1fae5;  --color-success-text: #047857;   /* h≈150° */
+  --color-danger: #dc2626;   --color-danger-bg: #fee2e2;   --color-danger-text: #991b1b;     /* h≈0° */
+  --color-danger-soft-bg: #fff5f5;      /* kartu peringatan lembut */
+  --color-danger-border-soft: #fecaca;
+  --color-info-bg: #e0f2fe;  --color-info-text: #0284c7;    /* h≈205° */
+  --color-warning-bg: #fef9c3; --color-warning-text: #a16207; /* h≈42° */
+
+  /* Border & garis */
+  --color-border: #e2e8f0;
+  --color-metric-border: #eaeff5;
+}
 ```
 
 ### 2.2 Tipografi

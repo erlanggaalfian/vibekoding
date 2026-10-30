@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generator Palet — Base Design System</title>
+<style>
+  :root {
+    --radius: 8px;
+    --font: Inter, system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font);
+    background: var(--color-bg-body, #f4f7f9);
+    color: var(--color-text-body, #334155);
+    font-size: 14px; line-height: 1.5;
+    padding: 24px 16px 64px;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 800; color: var(--color-text-header, #1e293b); }
+  .subtitle { color: var(--color-text-muted, #64748b); margin: 4px 0 20px; font-size: 13px; }
+  .grid { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--color-bg-content, #fff);
+    border: 1px solid var(--color-border, #e2e8f0);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  .card h2 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--color-text-muted, #64748b); margin-bottom: 12px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--color-text-header, #1e293b); }
+  .color-row { display: flex; gap: 8px; align-items: center; }
+  input[type="color"] { width: 48px; height: 40px; border: 1px solid var(--color-border, #e2e8f0); border-radius: 6px; padding: 2px; background: #fff; cursor: pointer; }
+  input[type="text"] { flex: 1; font-size: 14px; padding: 8px 10px; border: 1px solid var(--color-border, #e2e8f0); border-radius: 6px; font-family: monospace; }
+  .presets { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .preset { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--color-border, #e2e8f0); cursor: pointer; }
+  .preset.active { box-shadow: 0 0 0 2px var(--color-text-header, #1e293b); }
+  .harmony { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .harmony button {
+    font-size: 12px; font-weight: 600; padding: 8px 6px; border-radius: 6px;
+    border: 1px solid var(--color-border, #e2e8f0); background: var(--color-bg-content, #fff);
+    color: var(--color-text-body, #334155); cursor: pointer;
+  }
+  .harmony button.active { background: var(--color-primary, #0097FC); border-color: var(--color-primary, #0097FC); color: var(--color-primary-text, #fff); }
+  .wheel-wrap { display: flex; gap: 12px; align-items: center; margin-top: 4px; }
+  .wheel {
+    width: 104px; height: 104px; border-radius: 50%; position: relative; flex: none;
+    background: conic-gradient(from 0deg, hsl(0,85%,55%), hsl(60,85%,55%), hsl(120,70%,45%), hsl(180,70%,45%), hsl(240,75%,60%), hsl(300,70%,55%), hsl(360,85%,55%));
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.12);
+  }
+  .wheel::after { content: ""; position: absolute; inset: 30px; background: var(--color-bg-content, #fff); border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+  .dot { position: absolute; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); transform: translate(-50%,-50%); z-index: 2; }
+  .wheel-legend { font-size: 11px; color: var(--color-text-muted, #64748b); }
+  .wheel-legend b { color: var(--color-text-body, #334155); font-family: monospace; font-weight: 600; }
+  .contrast { font-size: 12px; margin-top: 10px; padding: 8px 10px; border-radius: 6px; background: var(--color-bg-hover, #f8fafc); border: 1px solid var(--color-border, #e2e8f0); }
+  .contrast.ok { border-color: var(--color-success, #10b981); }
+  .contrast.warn { border-color: var(--color-warning, #f59e0b); }
+
+  /* Preview */
+  .preview-section { margin-bottom: 16px; }
+  .preview-section > h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--color-text-muted, #64748b); margin-bottom: 8px; }
+  .btn { display: inline-block; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 8px; border: 1px solid transparent; cursor: pointer; margin: 0 8px 8px 0; transition: transform 100ms cubic-bezier(0,0,.2,1); }
+  .btn:active { transform: scale(.98); }
+  .btn-primary { background: var(--color-primary, #0097FC); color: var(--color-primary-text, #fff); }
+  .btn-accent { background: var(--color-accent, #0369a1); color: #fff; }
+  .btn-danger { background: var(--color-danger, #dc2626); color: #fff; }
+  .btn-ghost { background: var(--color-bg-content, #fff); border-color: var(--color-border, #e2e8f0); color: var(--color-text-body, #334155); }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: 3px 10px; border-radius: 999px; margin: 0 6px 6px 0; }
+  .badge-success { background: var(--color-success-bg, #d1fae5); color: var(--color-success-text, #047857); }
+  .badge-warning { background: var(--color-warning-bg, #fef9c3); color: var(--color-warning-text, #a16207); }
+  .badge-danger { background: var(--color-danger-bg, #fee2e2); color: var(--color-danger-text, #991b1b); }
+  .badge-info { background: var(--color-info-bg, #e0f2fe); color: var(--color-info-text, #0284c7); }
+  .alert { border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; font-size: 13px; border: 1px solid; }
+  .alert-info { background: var(--color-info-bg, #e0f2fe); border-color: var(--color-info-bg, #e0f2fe); color: var(--color-info-text, #0284c7); }
+  .alert-danger-soft { background: var(--color-danger-soft-bg, #fff5f5); border-color: var(--color-danger-border-soft, #fecaca); color: var(--color-text-body, #334155); }
+  .swatches { display: flex; border-radius: 8px; overflow: hidden; border: 1px solid var(--color-border, #e2e8f0); margin-bottom: 8px; }
+  .sw { flex: 1; height: 52px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 4px; font-size: 9px; font-family: monospace; color: rgba(255,255,255,.9); text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+  .sw.light { color: rgba(0,0,0,.55); text-shadow: none; }
+  .text-samples p { margin-bottom: 4px; }
+  .t-header { color: var(--color-text-header, #1e293b); font-weight: 700; }
+  .t-muted { color: var(--color-text-muted, #64748b); }
+
+  pre.css-out {
+    background: #0f172a; color: #e2e8f0; font-size: 11.5px; line-height: 1.6;
+    padding: 14px; border-radius: 8px; overflow-x: auto; max-height: 420px; overflow-y: auto;
+    font-family: Menlo, Consolas, monospace; white-space: pre;
+  }
+  .copy-row { display: flex; gap: 8px; margin-bottom: 10px; }
+  .btn-copy { background: var(--color-text-header, #1e293b); color: #fff; font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 8px; border: none; cursor: pointer; }
+  .copy-note { font-size: 12px; color: var(--color-text-muted, #64748b); align-self: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Generator Palet</h1>
+  <p class="subtitle">Pilih satu warna dasar — seluruh token <code>design-system.md</code> diturunkan otomatis theo aturan roda warna. Salin hasilnya sebagai <code>:root</code> proyek.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h2>1 · Warna dasar</h2>
+      <div class="field">
+        <div class="color-row">
+          <input type="color" id="baseColor" value="#0097fc">
+          <input type="text" id="baseHex" value="#0097fc" maxlength="7" spellcheck="false">
+        </div>
+        <div class="presets" id="presets"></div>
+      </div>
+      <h2>2 · Harmoni aksen</h2>
+      <div class="field">
+        <div class="harmony" id="harmony">
+          <button data-h="mono" class="active">Monokromatik</button>
+          <button data-h="analog">Analogous ±30°</button>
+          <button data-h="compl">Komplementer 180°</button>
+          <button data-h="triad">Triadik 120°</button>
+        </div>
+      </div>
+      <h2>Roda warna</h2>
+      <div class="wheel-wrap">
+        <div class="wheel" id="wheel"></div>
+        <div class="wheel-legend" id="wheelLegend"></div>
+      </div>
+      <div class="contrast" id="contrastBox"></div>
+    </div>
+
+    <div>
+      <div class="card preview-section">
+        <h2>Pratinjau</h2>
+        <h3>Tombol</h3>
+        <div>
+          <button class="btn btn-primary">Primer</button><button class="btn btn-accent">Aksen</button><button class="btn btn-danger">Bahaya</button><button class="btn btn-ghost">Ghost</button>
+        </div>
+        <h3 style="margin-top:12px">Badge status</h3>
+        <div>
+          <span class="badge badge-success">Aktif</span><span class="badge badge-warning">Menunggu</span><span class="badge badge-danger">Gagal</span><span class="badge badge-info">Info</span>
+        </div>
+        <h3 style="margin-top:12px">Kartu status</h3>
+        <div class="alert alert-info">Info: token info dipakai untuk pesan netral/informatif.</div>
+        <div class="alert alert-danger-soft">Kartu peringatan lembut: latar danger-soft + border danger-border-soft.</div>
+        <h3 style="margin-top:12px">Skala primer 50–900</h3>
+        <div class="swatches" id="scaleSwatches"></div>
+        <h3>Teks</h3>
+        <div class="text-samples">
+          <p class="t-header">Teks header — tegas dan gelap</p>
+          <p>Teks body — isi umum antarmuka</p>
+          <p class="t-muted">Teks muted — keterangan sekunder</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>CSS variables — salin sebagai :root</h2>
+        <div class="copy-row">
+          <button class="btn-copy" id="copyBtn">Salin CSS</button>
+          <span class="copy-note" id="copyNote"></span>
+        </div>
+        <pre class="css-out" id="cssOut"></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ---- util warna ---- */
+function hexToHsl(hex) {
+  hex = hex.replace("#", "");
+  if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
+  const r = parseInt(hex.slice(0, 2), 16) / 255,
+        g = parseInt(hex.slice(2, 4), 16) / 255,
+        b = parseInt(hex.slice(4, 6), 16) / 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = 0; const l = (max + min) / 2;
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      default: h = (r - g) / d + 4;
+    }
+    h *= 60;
+  }
+  return { h: Math.round(h) % 360, s: Math.round(s * 100), l: Math.round(l * 100) };
+}
+function hslToHex(h, s, l) {
+  h = ((h % 360) + 360) % 360; s = Math.min(100, Math.max(0, s)) / 100; l = Math.min(98, Math.max(2, l)) / 100;
+  const k = n => (n + h / 30) % 12;
+  const a = s * Math.min(l, 1 - l);
+  const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+  const to = x => Math.round(x * 255).toString(16).padStart(2, "0");
+  return "#" + to(f(0)) + to(f(8)) + to(f(4));
+}
+function luminance(hex) {
+  const c = hex.replace("#", "");
+  const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+  return 0.2126 * f(parseInt(c.slice(0, 2), 16)) + 0.7152 * f(parseInt(c.slice(2, 4), 16)) + 0.0722 * f(parseInt(c.slice(4, 6), 16));
+}
+function contrast(a, b) {
+  const l1 = luminance(a), l2 = luminance(b);
+  const [hi, lo] = l1 > l2 ? [l1, l2] : [l2, l1];
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+/* ---- state ---- */
+const PRESETS = ["#0097fc", "#10b981", "#8b5cf6", "#f97316", "#ef4444", "#14b8a6", "#eab308", "#ec4899"];
+let harmony = "mono";
+
+/* ---- generator ---- */
+function generate(baseHex) {
+  const { h, s, l } = hexToHsl(baseHex);
+  const sc = (hh, ss, ll) => hslToHex(hh, ss, ll);
+  const clampL = v => Math.min(97, Math.max(6, v));
+
+  // Skala primer: hue tetap, lightness bertahap (500 = warna dasar)
+  const scale = {
+    50:  sc(h, s * 0.50, 97),
+    100: sc(h, s * 0.65, 92),
+    200: sc(h, s * 0.80, 84),
+    300: sc(h, s * 0.90, 72),
+    400: sc(h, s * 0.95, 60),
+    500: baseHex.toLowerCase(),
+    600: sc(h, s,        clampL(l * 0.80)),
+    700: sc(h, Math.min(s * 1.05, 100), clampL(l * 0.64)),
+    800: sc(h, Math.min(s * 1.08, 100), clampL(l * 0.50)),
+    900: sc(h, Math.min(s * 1.08, 100), clampL(l * 0.38)),
+  };
+
+  // Aksen via harmoni roda warna
+  let accent, accentHue;
+  if (harmony === "analog")      { accentHue = h + 30;  accent = sc(accentHue, s, l); }
+  else if (harmony === "compl")  { accentHue = h + 180; accent = sc(accentHue, s, l); }
+  else if (harmony === "triad")  { accentHue = h + 120; accent = sc(accentHue, s, l); }
+  else                           { accentHue = h;       accent = scale[700]; }
+
+  // Netral mengikuti hue dasar (tinted)
+  const n = (ss, ll) => sc(h, ss, ll);
+  const neutrals = {
+    textHeader: n(25, 16), textBody: n(18, 29), textMuted: n(14, 45),
+    border: n(12, 88), metricBorder: n(10, 92),
+    bgBody: n(14, 96), bgHover: n(16, 98), bgContent: "#ffffff",
+  };
+
+  // Status: hue tetap di roda warna
+  const status = {
+    success: sc(150, 65, 45), successBg: sc(150, 55, 90), successText: sc(150, 70, 32),
+    danger: sc(0, 72, 50),   dangerBg: sc(0, 80, 93),     dangerText: sc(0, 70, 35),
+    dangerSoftBg: sc(0, 70, 97), dangerBorderSoft: sc(0, 75, 86),
+    infoBg: sc(205, 80, 92), infoText: sc(205, 85, 38),
+    warningBg: sc(48, 90, 90), warningText: sc(42, 85, 32),
+  };
+
+  // Teks primer: pilih putih / gelap menurut kontras
+  const crWhite = contrast(scale[500], "#ffffff");
+  const crDark = contrast(scale[500], "#16202e");
+  const primaryText = crWhite >= crDark ? "#ffffff" : "#16202e";
+  const primaryCr = Math.max(crWhite, crDark);
+
+  return { h, s, l, scale, accent, accentHue: ((accentHue % 360) + 360) % 360, neutrals, status, primaryText, primaryCr };
+}
+
+function buildCss(g) {
+  const L = [];
+  L.push(":root {");
+  L.push("  /* Skala primer (hue " + g.h + "°) */");
+  [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].forEach(k =>
+    L.push("  --color-primary-" + k + ": " + g.scale[k] + ";"));
+  L.push("");
+  L.push("  --color-primary: var(--color-primary-500);");
+  L.push("  --color-primary-hover: var(--color-primary-600);");
+  L.push("  --color-primary-text: " + g.primaryText + ";");
+  L.push("");
+  L.push("  /* Aksen (" + { mono: "monokromatik", analog: "analogous", compl: "komplementer", triad: "triadik" }[harmony] + ") */");
+  L.push("  --color-accent: " + g.accent + ";");
+  L.push("");
+  L.push("  /* Teks */");
+  L.push("  --color-text-header: " + g.neutrals.textHeader + ";");
+  L.push("  --color-text-body: " + g.neutrals.textBody + ";");
+  L.push("  --color-text-muted: " + g.neutrals.textMuted + ";");
+  L.push("");
+  L.push("  /* Latar */");
+  L.push("  --color-bg-body: " + g.neutrals.bgBody + ";");
+  L.push("  --color-bg-content: " + g.neutrals.bgContent + ";");
+  L.push("  --color-bg-hover: " + g.neutrals.bgHover + ";");
+  L.push("");
+  L.push("  /* Status */");
+  const st = g.status;
+  L.push("  --color-success: " + st.success + ";  --color-success-bg: " + st.successBg + ";  --color-success-text: " + st.successText + ";");
+  L.push("  --color-danger: " + st.danger + ";   --color-danger-bg: " + st.dangerBg + ";   --color-danger-text: " + st.dangerText + ";");
+  L.push("  --color-danger-soft-bg: " + st.dangerSoftBg + ";");
+  L.push("  --color-danger-border-soft: " + st.dangerBorderSoft + ";");
+  L.push("  --color-info-bg: " + st.infoBg + ";  --color-info-text: " + st.infoText + ";");
+  L.push("  --color-warning-bg: " + st.warningBg + "; --color-warning-text: " + st.warningText + ";");
+  L.push("");
+  L.push("  /* Border & garis */");
+  L.push("  --color-border: " + g.neutrals.border + ";");
+  L.push("  --color-metric-border: " + g.neutrals.metricBorder + ";");
+  L.push("}");
+  return L.join("\n");
+}
+
+/* ---- render ---- */
+const $ = id => document.getElementById(id);
+const baseColor = $("baseColor"), baseHex = $("baseHex");
+
+function dotPos(hueDeg, radiusPct) {
+  const a = (hueDeg - 90) * Math.PI / 180;
+  return { x: 50 + radiusPct * Math.cos(a), y: 50 + radiusPct * Math.sin(a) };
+}
+
+function render() {
+  let hex = baseHex.value.trim();
+  if (!/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex)) return;
+  if (hex.length === 4) hex = "#" + hex.slice(1).split("").map(c => c + c).join("");
+  baseColor.value = hex;
+
+  const g = generate(hex);
+
+  // Terapkan ke seluruh halaman (live re-theme)
+  const root = document.documentElement.style;
+  [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].forEach(k => root.setProperty("--color-primary-" + k, g.scale[k]));
+  root.setProperty("--color-primary", g.scale[500]);
+  root.setProperty("--color-primary-hover", g.scale[600]);
+  root.setProperty("--color-primary-text", g.primaryText);
+  root.setProperty("--color-accent", g.accent);
+  const N = g.neutrals, S = g.status;
+  root.setProperty("--color-text-header", N.textHeader);
+  root.setProperty("--color-text-body", N.textBody);
+  root.setProperty("--color-text-muted", N.textMuted);
+  root.setProperty("--color-bg-body", N.bgBody);
+  root.setProperty("--color-bg-content", N.bgContent);
+  root.setProperty("--color-bg-hover", N.bgHover);
+  root.setProperty("--color-border", N.border);
+  root.setProperty("--color-metric-border", N.metricBorder);
+  Object.entries({ success: S.success, "success-bg": S.successBg, "success-text": S.successText,
+    danger: S.danger, "danger-bg": S.dangerBg, "danger-text": S.dangerText,
+    "danger-soft-bg": S.dangerSoftBg, "danger-border-soft": S.dangerBorderSoft,
+    "info-bg": S.infoBg, "info-text": S.infoText, "warning-bg": S.warningBg, "warning-text": S.warningText })
+    .forEach(([k, v]) => root.setProperty("--color-" + k, v));
+
+  // Output CSS
+  $("cssOut").textContent = buildCss(g);
+
+  // Skala swatches
+  $("scaleSwatches").innerHTML = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map(k => {
+    const { l } = hexToHsl(g.scale[k]);
+    return '<div class="sw' + (l > 62 ? " light" : "") + '" style="background:' + g.scale[k] + '">' + k + "</div>";
+  }).join("");
+
+  // Roda warna: titik primer + aksen
+  const wheel = $("wheel");
+  wheel.querySelectorAll(".dot").forEach(d => d.remove());
+  const mk = (hueDeg, color) => {
+    const p = dotPos(hueDeg, 38);
+    const d = document.createElement("div");
+    d.className = "dot"; d.style.left = p.x + "%"; d.style.top = p.y + "%"; d.style.background = color;
+    wheel.appendChild(d);
+  };
+  mk(g.h, g.scale[500]); mk(g.accentHue, g.accent);
+  $("wheelLegend").innerHTML = "Primer <b>h=" + g.h + "°</b><br>Aksen <b>h=" + g.accentHue + "°</b> <b>" + g.accent + "</b>";
+
+  // Kontras
+  const box = $("contrastBox");
+  const ok = g.primaryCr >= 4.5;
+  box.className = "contrast " + (ok ? "ok" : "warn");
+  box.innerHTML = "Teks tombol primer: <b>" + g.primaryText + "</b> — kontras <b>" + g.primaryCr.toFixed(2) + ":1</b> " +
+    (ok ? "✓ lolos 4.5:1" : "⚠ di bawah 4.5:1 — untuk teks kecil pakai primer 700");
+
+  // Preset aktif
+  document.querySelectorAll(".preset").forEach(p =>
+    p.classList.toggle("active", p.dataset.hex.toLowerCase() === hex.toLowerCase()));
+}
+
+/* ---- events ---- */
+baseColor.addEventListener("input", e => { baseHex.value = e.target.value; render(); });
+baseHex.addEventListener("input", render);
+$("harmony").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  harmony = b.dataset.h;
+  document.querySelectorAll("#harmony button").forEach(x => x.classList.toggle("active", x === b));
+  render();
+});
+$("presets").innerHTML = PRESETS.map(h =>
+  '<div class="preset" data-hex="' + h + '" style="background:' + h + '" title="' + h + '"></div>').join("");
+$("presets").addEventListener("click", e => {
+  const p = e.target.closest(".preset"); if (!p) return;
+  baseHex.value = p.dataset.hex; render();
+});
+$("copyBtn").addEventListener("click", async () => {
+  const note = $("copyNote");
+  try { await navigator.clipboard.writeText($("cssOut").textContent); note.textContent = "✓ tersalin"; }
+  catch { note.textContent = "gagal — salin manual dari kotak"; }
+  setTimeout(() => note.textContent = "", 2500);
+});
+render();
+</script>
+</body>
+</html>

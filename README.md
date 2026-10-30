@@ -21,6 +21,7 @@ ini ke AI agent, dan seluruh sistem langsung diterapkan ke proyek baru.
 | `skills/vibekoding/` | **Skill master.** Satu pintu masuk: baca desain → terapkan dengan urutan → verifikasi. |
 | `skills/base-design-system/` | Cara menerapkan base design ke proyek web apa pun (tokens → kontrak JS → pola per halaman → verifikasi). |
 | `examples/demo.html` | Contoh mandiri, satu file tanpa dependency: accordion, filter collapsible, bottom-sheet `mConfirm`, badge, tombol, pagination, judul ketuk. |
+| `examples/palette-generator.html` | **Generator palet interaktif.** Pilih warna dasar + harmoni roda warna (monokromatik/analogous/komplementer/triadik) → hasilkan seluruh token CSS, pratinjau live, salin sebagai `:root`. |
 
 ## Skills
 

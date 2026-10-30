@@ -23,6 +23,11 @@ ke proyek yang sedang dikerjakan.
 
 Jangan mulai menulis kode UI sebelum dua file itu dibaca.
 
+**Warna:** primer tidak dikunci ke satu hex. Tentukan warna dasar proyek,
+lalu generate seluruh palet via `examples/palette-generator.html`
+(pilih harmoni roda warna: monokromatik/analogous/komplementer/triadik),
+tempel hasilnya sebagai `:root`. Aturan lengkap di `design-system.md` §2.1.
+
 ## 2. Terapkan dengan urutan ini
 
 | Tahap | Skill | Kapan |
