@@ -66,6 +66,28 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 @keyframes slideUp {
   from { transform: translateY(40px); opacity: 0; }
 }
+/* ============ BLUR / FROSTED GLASS ============ */
+.blur-stage { border-radius: 12px; padding: 36px 20px; background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 55%, #ec4899 100%); }
+.blur-card { max-width: 340px; background: rgba(255,255,255,.72); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.65); border-radius: 12px; padding: 16px 18px; }
+.blur-card h4 { margin: 0 0 4px; font-size: 14px; font-weight: 700; color: var(--color-text-header); }
+.blur-card p { margin: 0; font-size: 13px; color: var(--color-text-body); }
+/* ============ MICRO-INTERACTION ============ */
+.mi-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.mi-row:last-child { margin-bottom: 0; }
+.switch { position: relative; display: inline-block; width: 48px; height: 28px; flex-shrink: 0; cursor: pointer; }
+.switch input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.switch .track { position: absolute; inset: 0; border-radius: 999px; background: #cbd5e1; transition: background .2s var(--ease-out); }
+.switch .knob { position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform .2s var(--ease-out); }
+.switch input:checked + .track { background: var(--color-primary); }
+.switch input:checked + .track .knob { transform: translateX(20px); }
+.switch input:focus-visible + .track { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.progress { height: 8px; border-radius: 999px; background: var(--color-bg-body); border: 1px solid var(--color-border); overflow: hidden; }
+.progress > i { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--color-primary); transition: width .2s var(--ease-out); }
+/* ============ TOAST ============ */
+.toast { position: fixed; left: 50%; bottom: 24px; z-index: 1100; max-width: calc(100vw - 32px); padding: 12px 20px; border-radius: 10px; background: var(--color-text-header); color: #fff; font-size: 13px; font-weight: 600; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(16px); transition: opacity .2s var(--ease-out), transform .35s var(--ease-out); }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* ============ EMPTY STATE ============ */
+.empty { text-align: center; padding: 28px 16px; color: var(--color-text-muted); font-size: 13px; font-style: italic; }
 /* ============ MOBILE (max-width: 768px) ============ */
 @media (max-width: 768px) {
   h1.page-header { font-size: 20px; }
@@ -92,6 +114,8 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
   .pagination > :first-child, .pagination > :last-child { display: none; }
   /* Input 16px anti-zoom iOS */
   .filter-row input, .filter-row select { font-size: 16px; }
+  /* Toast di atas bottom tab bar */
+  .toast { bottom: calc(96px + env(safe-area-inset-bottom)); }
   /* Navigasi: topbar hilang, tab bar bawah muncul */
   .topnav { display: none; }
   body { padding-bottom: 84px; }
@@ -106,6 +130,11 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
   .m-confirm-overlay { align-items: center; padding: 24px; }
   .m-confirm-box { border-radius: 12px; animation: none; }
   .m-filter-more { display: block !important; }
+}
+@media (hover: hover) and (min-width: 769px) {
+  /* Hover lift: hanya perangkat ber-pointer */
+  .lift { transition: transform .2s var(--ease-out), box-shadow .2s var(--ease-out); }
+  .lift:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
 }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
@@ -162,8 +191,44 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
   <h2 class="section-title">Badge &amp; Tombol</h2>
   <div class="panel">
     <p><span class="badge danger">Gagal</span> <span class="badge success">Sukses</span> <span class="badge gray">Riwayat</span></p>
-    <p><button class="btn" id="demo-confirm">Hapus (mConfirm)</button>
+    <p><button class="btn">Primer</button>
        <button class="btn secondary">Sekunder</button></p>
+  </div>
+
+  <h2 class="section-title">Popup &amp; Dialog</h2>
+  <div class="panel">
+    <p class="chart-title">Tengah di desktop · bottom-sheet di mobile</p>
+    <p style="font-size:13px">Satu komponen <code>mConfirm</code> — di desktop muncul di tengah layar, di mobile jadi bottom-sheet. Kecilkan jendela untuk melihat perbedaannya.</p>
+    <p><button class="btn" id="demo-confirm-danger">Konfirmasi hapus</button>
+       <button class="btn secondary" id="demo-confirm-info">Info</button></p>
+  </div>
+
+  <h2 class="section-title">Blur / Frosted Glass</h2>
+  <div class="panel">
+    <p class="chart-title">backdrop-filter: blur(16px)</p>
+    <div class="blur-stage">
+      <div class="blur-card">
+        <h4>Panel kaca buram</h4>
+        <p>Untuk menu/panel melayang di atas konten — latar belakang tetap terbaca samar.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Micro-interaction</h2>
+  <div class="panel">
+    <p class="chart-title">Umpan balik kecil &amp; cepat (100–200ms)</p>
+    <div class="mi-row">
+      <label class="switch"><input type="checkbox" id="miSwitch"><span class="track"><span class="knob"></span></span></label>
+      <span style="font-size:13px">Notifikasi <b id="miSwitchState">mati</b></span>
+    </div>
+    <div class="mi-row">
+      <div class="progress" style="flex:1"><i id="miBar"></i></div>
+      <button class="btn btn-sm" id="miRun">Jalankan</button>
+    </div>
+    <div class="mi-row">
+      <button class="btn btn-sm secondary" id="miToast">Tampilkan toast</button>
+      <div class="panel lift" style="margin:0;padding:12px 16px;font-size:13px;flex:1">Arahkan kursor ke kartu ini (desktop)</div>
+    </div>
   </div>
 
   <h2 class="section-title">Navigasi Responsif</h2>
@@ -182,6 +247,11 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
     </div>
   </div>
 
+  <h2 class="section-title">Empty State</h2>
+  <div class="panel">
+    <div class="empty">Belum ada data.<br>Ubah filter atau tambah data baru untuk memulai.</div>
+  </div>
+
 </div>
 
 <!-- Navigasi mobile: bottom tab bar (disembunyikan di desktop) -->
@@ -191,6 +261,9 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
   <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Laporan</a>
   <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>Pengaturan</a>
 </nav>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <!-- Bottom-sheet dialog -->
 <div class="m-confirm-overlay" id="mConfirmOverlay" role="dialog" aria-modal="true">
@@ -258,9 +331,41 @@ window.mConfirm = function (opts) {
     };
   });
 };
-document.getElementById('demo-confirm').addEventListener('click', async function () {
+document.getElementById('demo-confirm-danger').addEventListener('click', async function () {
   var ok = await window.mConfirm({ title: 'Hapus item?', message: 'Tindakan ini tidak bisa dibatalkan.', confirmText: 'Ya, hapus', danger: true });
-  alert(ok ? 'Dihapus (contoh)' : 'Dibatalkan');
+  showToast(ok ? 'Item dihapus (contoh)' : 'Dibatalkan');
+});
+document.getElementById('demo-confirm-info').addEventListener('click', async function () {
+  await window.mConfirm({ title: 'Info', message: 'Ini dialog info — bukan aksi berbahaya.', confirmText: 'Mengerti', cancelText: 'Tutup', danger: false });
+});
+
+/* Toast: muncul di atas, hilang otomatis */
+var toastTimer = null;
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
+}
+document.getElementById('miToast').addEventListener('click', function () {
+  showToast('Perubahan disimpan (contoh)');
+});
+
+/* Toggle switch: teks status mengikuti */
+document.getElementById('miSwitch').addEventListener('change', function (e) {
+  document.getElementById('miSwitchState').textContent = e.target.checked ? 'menyala' : 'mati';
+});
+
+/* Progress bar: animasi 0 -> 100% */
+document.getElementById('miRun').addEventListener('click', function () {
+  var bar = document.getElementById('miBar'), p = 0;
+  bar.style.width = '0';
+  var iv = setInterval(function () {
+    p += 8;
+    if (p >= 100) { p = 100; clearInterval(iv); setTimeout(function () { bar.style.width = '0'; }, 800); }
+    bar.style.width = p + '%';
+  }, 120);
 });
 </script>
 </body>

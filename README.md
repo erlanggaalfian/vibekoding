@@ -20,7 +20,7 @@ ini ke AI agent, dan seluruh sistem langsung diterapkan ke proyek baru.
 | `design-system.md` | **Acuan desain utama.** Tokens (warna, tipografi, shadow, motion), pola interaksi mobile app-like (collapsed-first accordion, bottom-sheet dialog, filter lipat), komponen, checklist. |
 | `skills/vibekoding/` | **Skill master.** Satu pintu masuk: baca desain → terapkan dengan urutan → verifikasi. |
 | `skills/base-design-system/` | Cara menerapkan base design ke proyek web apa pun (tokens → kontrak JS → pola per halaman → verifikasi). |
-| `examples/demo.html` | Contoh mandiri, satu file tanpa dependency: accordion, filter collapsible, bottom-sheet `mConfirm`, badge, tombol, pagination, judul ketuk. |
+| `examples/demo.html` | Contoh mandiri, satu file tanpa dependency: navigasi responsif (top bar desktop / tab bar mobile), accordion, filter collapsible, popup `mConfirm` (tengah di desktop, bottom-sheet di mobile), blur/frosted glass, micro-interaction (toggle, progress, toast, hover-lift), badge, tombol, pagination, empty state. |
 | `examples/palette-generator.html` | **Generator palet interaktif.** Pilih warna dasar + harmoni roda warna (monokromatik/analogous/komplementer/triadik) → hasilkan seluruh token CSS, pratinjau live, salin sebagai `:root`. |
 
 ## Skills

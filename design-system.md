@@ -278,6 +278,17 @@ Empty state: `.empty-data-text` (italic, muted, tengah). Toast diposisikan **di 
   padding bawah agar konten tidak tertutup tab bar.
 - Satu daftar link untuk dua tampilan; state aktif sinkron.
 
+### 4.9 Toggle switch
+
+48×28px, knob 22px, geser 20px dalam 200ms. Track off = slate-300,
+on = primer. `focus-visible` outline 2px. Hanya knob yang bergerak.
+
+### 4.10 Progress bar
+
+Tinggi 8px, radius penuh, track = bg + border. Fill = primer,
+`transition: width 200ms`. Untuk daftar panjang pakai
+`transform: scaleX()` agar tidak memicu layout.
+
 ---
 
 ## 5. Checklist Penerapan ke Proyek Baru
