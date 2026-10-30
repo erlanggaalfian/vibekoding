@@ -27,6 +27,7 @@ Terapkan base design system (mobile app-like + desktop konsisten) ke proyek web 
 ## Jaga konsistensi
 
 - Satu komponen badge untuk semua label status; satu gaya tombol; pagination ikut pola 40px satu baris di mobile.
+- Sediakan varian gelap: blok `[data-theme="dark"]` (lihat §2.1), tombol toggle, simpan pilihan di `localStorage`, hormati `prefers-color-scheme`.
 - Input mobile 16px agar iOS tidak auto-zoom; hormati `prefers-reduced-motion`.
 - Semua pola lipat hanya aktif di `max-width: 768px`; desktop harus piksel-identik sebelum dan sesudah.
 - Uji di 360px: tidak ada wrap rusak, tidak ada teks terpotong, target sentuh minimal 40px.

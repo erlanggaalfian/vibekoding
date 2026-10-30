@@ -106,6 +106,28 @@ komponen ikut berubah langsung mengikuti palet.
 }
 ```
 
+#### Mode gelap (`[data-theme="dark"]`)
+
+Jangan bikin palet gelap manual — turunkan dari hue yang sama:
+
+- **Latar:** lightness 9–17% (body 9%, content 13%, hover 17%), saturasi 14–18%.
+- **Teks:** header 93%, body 80%, muted 62% lightness.
+- **Border:** 20–24% lightness.
+- **Primer:** pakai skala **400** (hover 300); teks primer dipilih theo
+  kontras (biasanya teks gelap, ≥ 4.5:1).
+- **Status:** base tetap, `bg` → versi gelap (lightness ~16%),
+  `text` → versi terang (~75%).
+- Aktifkan via atribut: `<html data-theme="dark">`. Sediakan tombol
+  toggle (ikon bulan/matahari), simpan pilihan di `localStorage`,
+  hormati `prefers-color-scheme` saat pertama kali dibuka.
+- Tambahkan `color-scheme: dark` di blok dark agar kontrol bawaan
+  browser (scrollbar, input) ikut gelap.
+
+Blok `[data-theme="dark"]` dihasilkan otomatis oleh
+`examples/palette-generator.html` (ada pratinjau Terang/Gelap di sana)
+dan dicontohkan di `examples/demo.html` (tombol di topnav desktop,
+FAB di atas tab bar mobile).
+
 ### 2.2 Tipografi
 
 Font: `Inter, system-ui, -apple-system, sans-serif`. Mono: `Menlo, Courier New`.

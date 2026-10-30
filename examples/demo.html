@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Base Design System — Demo</title>
+<script>(function(){try{var t=localStorage.getItem("vibekoding-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <style>
 /* ============ TOKENS (dari design-system.md §2) ============ */
 :root {
@@ -27,12 +28,12 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 .chart-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--color-text-muted); margin: 0 0 12px; }
 /* ============ BADGE & TOMBOL ============ */
 .badge { display: inline-block; padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; }
-.badge.danger { background: #fee2e2; color: var(--color-danger-text); }
+.badge.danger { background: var(--color-danger-bg); color: var(--color-danger-text); }
 .badge.success { background: var(--color-success-bg); color: var(--color-success-text); }
 .badge.gray { background: #e2e8f0; color: #475569; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; min-height: 40px; border-radius: 8px; font-size: 14px; font-weight: 600; border: 1px solid transparent; cursor: pointer; text-decoration: none; background: var(--color-primary); color: #fff; transition: transform .1s var(--ease-out); }
 .btn:active { transform: scale(.97); }
-.btn.secondary { background: #f8fafc; border-color: var(--color-border); color: #475569; }
+.btn.secondary { background: var(--color-bg-hover); border-color: var(--color-border); color: var(--color-text-body); }
 .btn-sm { padding: 6px 12px; min-height: 32px; font-size: 13px; border-radius: 6px; }
 /* ============ NAVIGASI: desktop atas, mobile bawah ============ */
 .topnav { background: var(--color-bg-content); border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 900; }
@@ -55,7 +56,7 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 /* ============ FILTER ============ */
 .m-filter-head { display: none; }
 .filter-row { display: flex; gap: 8px; margin-bottom: 12px; }
-.filter-row input, .filter-row select { font-size: 14px; padding: 10px 12px; border: 1px solid var(--color-border); border-radius: 8px; background: #fff; color: var(--color-text-body); }
+.filter-row input, .filter-row select { font-size: 14px; padding: 10px 12px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-bg-content); color: var(--color-text-body); }
 /* ============ BOTTOM-SHEET DIALOG ============ */
 .m-confirm-overlay { position: fixed; inset: 0; background: rgba(30,41,59,.5); display: none; align-items: flex-end; justify-content: center; z-index: 1000; }
 .m-confirm-overlay.open { display: flex; }
@@ -98,6 +99,32 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 .m-dot.ok { background: var(--color-success); }
 .m-dot.bad { background: var(--color-danger); }
 .m-collapsed-extra { display: inline-flex; align-items: center; gap: 6px; margin-left: 8px; }
+/* ============ MODE GELAP ============ */
+[data-theme="dark"] { color-scheme: dark;
+  --color-primary: #38acfa; --color-primary-hover: #77c4f8; --color-primary-text: #16202e;
+  --color-text-header: #ebeeef; --color-text-body: #c7cdd1; --color-text-muted: #96a0a6;
+  --color-bg-body: #13181b; --color-bg-content: #1c2226; --color-bg-hover: #252d31;
+  --color-success-bg: #183929; --color-success-text: #99e6bf;
+  --color-danger-bg: #431919; --color-danger-text: #ec9393;
+  --color-danger-soft-bg: #321515; --color-danger-border-soft: #642b2b;
+  --color-info-bg: #142c3d; --color-info-text: #93c7ec;
+  --color-warning-bg: #3d3314; --color-warning-text: #f0d175;
+  --color-border: #363f45; --color-metric-border: #2e3438;
+  --shadow-card: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+}
+[data-theme="dark"] .m-confirm-box { background: var(--color-bg-content); }
+[data-theme="dark"] .badge.gray { background: #363f45; color: #c7cdd1; }
+[data-theme="dark"] .switch .track { background: #475569; }
+[data-theme="dark"] .toast { background: #ebeeef; color: #13181b; }
+/* Tombol tema: topnav (desktop) + FAB (mobile) */
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex: 0 0 auto; border-radius: 8px; border: 1px solid var(--color-border); background: var(--color-bg-content); color: var(--color-text-header); cursor: pointer; }
+.theme-toggle:hover { background: var(--color-bg-body); }
+.theme-toggle svg, .theme-fab svg { width: 20px; height: 20px; }
+.theme-toggle .icon-sun, .theme-fab .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun, [data-theme="dark"] .theme-fab .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon, [data-theme="dark"] .theme-fab .icon-moon { display: none; }
+.theme-fab { display: none; }
+@media (max-width: 768px) { .theme-fab { display: inline-flex; position: fixed; right: 16px; bottom: calc(96px + env(safe-area-inset-bottom)); z-index: 950; width: 48px; height: 48px; border-radius: 50%; align-items: center; justify-content: center; background: var(--color-bg-content); border: 1px solid var(--color-border); box-shadow: var(--shadow-card); color: var(--color-text-header); cursor: pointer; } }
 /* ============ MOBILE (max-width: 768px) ============ */
 @media (max-width: 768px) {
   h1.page-header { font-size: 20px; }
@@ -113,7 +140,7 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
   .m-item.is-open .m-item-extra { display: block; }
   .m-item.is-open .m-item-extra.btn { display: flex; width: 100%; }
   /* Filter collapsible */
-  .m-filter-head { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 10px 12px; border: 1px solid var(--color-border); border-radius: 8px; background: #fff; font-size: 14px; font-weight: 600; color: var(--color-text-header); cursor: pointer; }
+  .m-filter-head { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 10px 12px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-bg-content); font-size: 14px; font-weight: 600; color: var(--color-text-header); cursor: pointer; }
   .m-filter-head::after { content: ''; width: 8px; height: 8px; border-right: 2px solid var(--color-text-muted); border-bottom: 2px solid var(--color-text-muted); transform: rotate(45deg); transition: transform .2s; }
   .m-filter-head.is-open::after { transform: rotate(-135deg); }
   .m-filter-more { display: none; }
@@ -175,6 +202,7 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
       <a href="#" class="active">Beranda</a><a href="#">Data</a><a href="#">Laporan</a><a href="#">Pengaturan</a>
     </nav>
     <span class="spacer"></span>
+    <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema terang/gelap"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
     <a class="btn" href="#">Mulai</a>
   </div>
 </header>
@@ -318,6 +346,9 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 <!-- Toast -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<!-- Tombol tema (mobile): FAB di atas tab bar -->
+<button class="theme-fab" id="themeFab" aria-label="Ganti tema terang/gelap"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+
 <!-- Bottom-sheet dialog -->
 <div class="m-confirm-overlay" id="mConfirmOverlay" role="dialog" aria-modal="true">
   <div class="m-confirm-box">
@@ -331,6 +362,15 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 </div>
 
 <script>
+/* Tema terang/gelap: toggle + simpan pilihan di localStorage */
+function toggleTheme() {
+  var t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem('vibekoding-theme', t); } catch (e) {}
+}
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+document.getElementById('themeFab').addEventListener('click', toggleTheme);
+
 /* Navigasi demo: pindah .active di dalam tiap nav */
 ['topnavLinks', 'tabbar'].forEach(function (id) {
   var nav = document.getElementById(id);
