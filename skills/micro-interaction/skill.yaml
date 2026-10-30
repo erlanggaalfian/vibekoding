@@ -1,0 +1,5 @@
+name: "micro-interaction"
+title: "Micro Interaction"
+description: "Micro-interaction untuk UI web: gerakan kecil yang memberi umpan balik (button press, hover lift, chevron accordion, bottom-sheet, toast) — simpel, cepat (100-200ms), dan konsisten."
+category: "Work and knowledge"
+include_in_prompt: false

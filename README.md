@@ -26,6 +26,7 @@ Koleksi skill untuk agen coding. Skill bertanda ✦ sudah diadaptasi ke base des
 | `skills/ponytail-review/` ✦ | DietrichGebert/ponytail | Review perubahan: benar, aman, tahan beban, teruji, cepat, ramping. |
 | `skills/ponytail-audit/` ✦ | DietrichGebert/ponytail | Audit seluruh repo: bug, keamanan, beban, tes, dan apa yang bisa dihapus. |
 | `skills/codebase-design/` ✦ | mattpocock/skills | Merancang deep module: interface kecil, perilaku besar, seam bersih. |
+| `skills/micro-interaction/` ✦ | repo ini (dibuat baru) | Gerakan kecil yang simpel dan bagus: button press, hover lift, chevron, sheet, toast — 100–200ms. |
 
 Isi tiap skill (kecuali bagian adaptasi lokal) dipertahankan verbatim dari sumbernya; lisensi asli disertakan bila ada.
 
