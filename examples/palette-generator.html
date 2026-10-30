@@ -204,10 +204,10 @@ function generate(baseHex) {
   };
 
   // Aksen via harmoni roda warna
-  let accent, accentHue;
+  let accent, accentHue, accent2 = null, accent2Hue = null;
   if (harmony === "analog")      { accentHue = h + 30;  accent = sc(accentHue, s, l); }
   else if (harmony === "compl")  { accentHue = h + 180; accent = sc(accentHue, s, l); }
-  else if (harmony === "triad")  { accentHue = h + 120; accent = sc(accentHue, s, l); }
+  else if (harmony === "triad")  { accentHue = h + 120; accent = sc(accentHue, s, l); accent2Hue = h + 240; accent2 = sc(accent2Hue, s, l); }
   else                           { accentHue = h;       accent = scale[700]; }
 
   // Netral mengikuti hue dasar (tinted)
@@ -233,7 +233,7 @@ function generate(baseHex) {
   const primaryText = crWhite >= crDark ? "#ffffff" : "#16202e";
   const primaryCr = Math.max(crWhite, crDark);
 
-  return { h, s, l, scale, accent, accentHue: ((accentHue % 360) + 360) % 360, neutrals, status, primaryText, primaryCr };
+  return { h, s, l, scale, accent, accentHue: ((accentHue % 360) + 360) % 360, accent2, accent2Hue: accent2Hue === null ? null : ((accent2Hue % 360) + 360) % 360, neutrals, status, primaryText, primaryCr };
 }
 
 function buildCss(g) {
@@ -335,7 +335,9 @@ function render() {
     wheel.appendChild(d);
   };
   mk(g.h, g.scale[500]); mk(g.accentHue, g.accent);
-  $("wheelLegend").innerHTML = "Primer <b>h=" + g.h + "°</b><br>Aksen <b>h=" + g.accentHue + "°</b> <b>" + g.accent + "</b>";
+  if (g.accent2) mk(g.accent2Hue, g.accent2);
+  $("wheelLegend").innerHTML = "Primer <b>h=" + g.h + "°</b><br>Aksen <b>h=" + g.accentHue + "°</b> <b>" + g.accent + "</b>" +
+    (g.accent2 ? "<br>Aksen 2 <b>h=" + g.accent2Hue + "°</b> <b>" + g.accent2 + "</b>" : "");
 
   // Kontras
   const box = $("contrastBox");

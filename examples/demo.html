@@ -89,6 +89,15 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 /* ============ EMPTY STATE ============ */
 .empty { text-align: center; padding: 28px 16px; color: var(--color-text-muted); font-size: 13px; font-style: italic; }
+/* ============ TABEL → KARTU (mobile) ============ */
+.demo-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; }
+.demo-table th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--color-text-muted); padding: 10px 16px; border-bottom: 1px solid var(--color-border); }
+.demo-table td { padding: 12px 16px; border-bottom: 1px solid var(--color-border); vertical-align: middle; }
+.demo-table tbody tr:last-child td { border-bottom: none; }
+.m-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; vertical-align: 1px; }
+.m-dot.ok { background: var(--color-success); }
+.m-dot.bad { background: var(--color-danger); }
+.m-collapsed-extra { display: inline-flex; align-items: center; gap: 6px; margin-left: 8px; }
 /* ============ MOBILE (max-width: 768px) ============ */
 @media (max-width: 768px) {
   h1.page-header { font-size: 20px; }
@@ -118,6 +127,18 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
   .pagination > a:nth-last-child(2) { display: inline-flex; }
   /* Input 16px anti-zoom iOS */
   .filter-row input, .filter-row select { font-size: 16px; }
+  /* Tabel jadi kartu: thead hilang, baris jadi kartu lipat */
+  .demo-table thead { display: none; }
+  .demo-table, .demo-table tbody, .demo-table tr, .demo-table td { display: block; }
+  .demo-table tr.m-row { border: 1px solid var(--color-border); border-radius: 8px; margin: 8px; cursor: pointer; background: var(--color-bg-content); }
+  .demo-table tr.m-row td { border: none; padding: 5px 14px; }
+  .demo-table tr.m-row td.td-primary { padding-top: 10px; }
+  .demo-table tr.m-row td:last-child { padding-bottom: 12px; }
+  .demo-table tr.m-row td:not(.td-primary) { display: none; }
+  .demo-table tr.m-row.is-expanded td:not(.td-primary) { display: block; }
+  .demo-table tr.m-row .m-item-extra { display: none; }
+  .demo-table tr.m-row.is-expanded .m-item-extra { display: block; }
+  .demo-table tr.m-row.is-expanded .m-item-extra.btn { display: flex; width: 100%; }
   /* Toast di atas bottom tab bar */
   .toast { bottom: calc(96px + env(safe-area-inset-bottom)); }
   /* Navigasi: topbar hilang, tab bar bawah muncul */
@@ -183,8 +204,29 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
     </ul>
   </div>
 
-  <h2 class="section-title">Filter Collapsible</h2>
-  <div class="panel">
+  <h2 class="section-title">Tabel → Kartu</h2>
+  <div class="panel" style="padding:0;overflow:hidden">
+    <p class="chart-title" style="padding:16px 16px 0">Desktop: tabel · Mobile: kartu lipat</p>
+    <table class="demo-table">
+      <thead><tr><th>Perangkat</th><th>Status</th><th>IP Address</th><th></th></tr></thead>
+      <tbody>
+        <tr class="m-row" aria-expanded="false">
+          <td class="td-primary"><span class="m-item-title"><span>Dist-11<span class="m-collapsed-extra"><span class="m-dot bad"></span><span class="badge danger">Gagal</span></span></span></span><span class="m-item-extra" style="font-size:12px;color:var(--color-text-muted)">Terakhir gagal 25/10 23:01 — perlu tindakan.</span></td>
+          <td><span class="badge danger">Gagal</span></td>
+          <td style="font-family:monospace;font-size:13px">10.5.5.152</td>
+          <td><a class="btn btn-sm secondary m-item-extra" href="#">Detail</a></td>
+        </tr>
+        <tr class="m-row" aria-expanded="false">
+          <td class="td-primary"><span class="m-item-title"><span>OLT ZTE C320<span class="m-collapsed-extra"><span class="m-dot ok"></span><span class="badge success">OK</span></span></span></span><span class="m-item-extra" style="font-size:12px;color:var(--color-text-muted)">Backup terakhir sukses 25/10 02:23.</span></td>
+          <td><span class="badge success">OK</span></td>
+          <td style="font-family:monospace;font-size:13px">10.10.15.146</td>
+          <td><a class="btn btn-sm secondary m-item-extra" href="#">Detail</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-title">Filter Collapsible</h2>  <div class="panel">
     <button class="m-filter-head" data-toggle="demo-filter" aria-expanded="false"><span>Filter</span></button>
     <div class="m-filter-more" id="demo-filter" style="margin-top:8px">
       <div class="filter-row">
@@ -207,6 +249,10 @@ h2.section-title { font-size: 20px; font-weight: 700; color: var(--color-text-he
     <p style="font-size:13px">Satu komponen <code>mConfirm</code> — di desktop muncul di tengah layar, di mobile jadi bottom-sheet. Kecilkan jendela untuk melihat perbedaannya.</p>
     <p><button class="btn" id="demo-confirm-danger">Konfirmasi hapus</button>
        <button class="btn secondary" id="demo-confirm-info">Info</button></p>
+    <form id="demoForm" class="filter-row" style="margin-top:4px">
+      <input placeholder="Nama perangkat…" aria-label="Nama perangkat">
+      <button class="btn" type="submit">Simpan (mConfirmSubmit)</button>
+    </form>
   </div>
 
   <h2 class="section-title">Blur / Frosted Glass</h2>
@@ -315,6 +361,13 @@ document.addEventListener('click', function (e) {
   if (item && !e.target.closest('a,button,input,select,textarea')) {
     item.classList.toggle('is-open');
     item.setAttribute('aria-expanded', item.classList.contains('is-open'));
+    return;
+  }
+  /* Kontrak tr.m-row (tabel → kartu): toggle is-expanded */
+  var row = e.target.closest('tr.m-row');
+  if (row && !e.target.closest('a,button,input,select,textarea')) {
+    row.classList.toggle('is-expanded');
+    row.setAttribute('aria-expanded', row.classList.contains('is-expanded'));
   }
 });
 
@@ -344,6 +397,19 @@ document.getElementById('demo-confirm-danger').addEventListener('click', async f
 });
 document.getElementById('demo-confirm-info').addEventListener('click', async function () {
   await window.mConfirm({ title: 'Info', message: 'Ini dialog info — bukan aksi berbahaya.', confirmText: 'Mengerti', cancelText: 'Tutup', danger: false });
+});
+
+/* window.mConfirmSubmit(form, opts): konfirmasi lalu submit form */
+window.mConfirmSubmit = function (form, opts) {
+  return window.mConfirm(opts || {}).then(function (ok) {
+    if (ok) form.submit();
+    return ok;
+  });
+};
+document.getElementById('demoForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var ok = await window.mConfirm({ title: 'Simpan?', message: 'Simpan perubahan ini?', confirmText: 'Ya, simpan', danger: false });
+  if (ok) showToast('Tersimpan (contoh)');
 });
 
 /* Toast: muncul di atas, hilang otomatis */
