@@ -1,0 +1,5 @@
+name: "ponytail-audit"
+title: "Ponytail Audit"
+description: "Audit kualitas seluruh repo: bug, keamanan, ketahanan beban, kode berisiko tanpa tes, dan apa yang bisa dihapus."
+category: "Work and knowledge"
+include_in_prompt: false

@@ -1,0 +1,5 @@
+name: "codebase-design"
+title: "Codebase Design"
+description: "Kosakata bersama untuk merancang deep module: interface kecil, perilaku besar, seam bersih, mudah diuji."
+category: "Work and knowledge"
+include_in_prompt: false
