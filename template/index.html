@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0097FC">
+<title>Template — Base Design System</title>
+<!--
+  TEMPLATE STARTER — Base Design System
+  Lihat README.md di folder ini untuk panduan fork & ganti palet.
+  Acuan: ../design-system.md · Generator palet: ../examples/palette-generator.html
+-->
+<script>(function(){try{var t=localStorage.getItem("vibekoding-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+
+<!-- Navigasi desktop: top bar 60px (disembunyikan di mobile, §4.8) -->
+<header class="topnav">
+  <div class="topnav-inner">
+    <!-- TODO: ganti dengan nama aplikasimu -->
+    <a class="brand" href="#"><span class="mark" aria-hidden="true"></span>Template</a>
+    <nav id="topnavLinks" aria-label="Navigasi utama">
+      <a href="#" class="active">Beranda</a><a href="#">Data</a><a href="#">Laporan</a><a href="#">Pengaturan</a>
+    </nav>
+    <span class="spacer"></span>
+    <button class="theme-toggle" data-theme-toggle aria-label="Ganti tema terang/gelap">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <a class="btn" href="#">Mulai</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- Judul halaman: ketuk untuk keterangan (mobile, §3.5) -->
+  <div class="page-header-container m-item" aria-expanded="false">
+    <h1 class="page-header m-item-title">Halaman contoh</h1>
+    <p class="page-subtitle m-item-extra">Scaffold siap pakai dari Base Design System — kecilkan jendela ke ≤768px untuk melihat perilaku mobile.</p>
+  </div>
+
+  <!-- Ringkasan angka -->
+  <h2 class="section-title">Ringkasan</h2>
+  <div class="grid-3">
+    <div class="metric"><p class="metric-title">Total item</p><p class="metric-value">128</p><p class="metric-sub">+12 minggu ini</p></div>
+    <div class="metric"><p class="metric-title">Aktif</p><p class="metric-value">96</p><p class="metric-sub">75% dari total</p></div>
+    <div class="metric"><p class="metric-title">Perlu perhatian</p><p class="metric-value">4</p><p class="metric-sub"><span class="badge danger">Prioritas</span></p></div>
+  </div>
+
+  <!-- Accordion per item (§3.1) -->
+  <h2 class="section-title">Daftar lipat</h2>
+  <div class="panel">
+    <p class="chart-title">Mobile: hanya ringkasan · ketuk untuk detail</p>
+    <ul class="card-list">
+      <li class="card-item tone-danger m-item" aria-expanded="false">
+        <span class="m-item-title"><span>Contoh item 1 <span class="m-collapsed-extra"><span class="m-dot bad"></span><span class="badge danger">Gagal</span></span></span></span>
+        <div class="meta m-item-extra">ID-001 · diperbarui 2 jam lalu<br>Item ini butuh tindakan — detail dan tombol aksi muncul di sini.</div>
+        <a class="btn btn-sm secondary m-item-extra" style="margin-top:8px" href="#">Lihat detail</a>
+      </li>
+      <li class="card-item m-item" aria-expanded="false">
+        <span class="m-item-title"><span>Contoh item 2 <span class="m-collapsed-extra"><span class="m-dot ok"></span><span class="badge success">Aktif</span></span></span></span>
+        <div class="meta m-item-extra">ID-002 · diperbarui kemarin<br>Keterangan tambahan item 2.</div>
+        <a class="btn btn-sm secondary m-item-extra" style="margin-top:8px" href="#">Lihat detail</a>
+      </li>
+      <li class="card-item m-item" aria-expanded="false">
+        <span class="m-item-title"><span>Contoh item 3 <span class="m-collapsed-extra"><span class="badge gray">Arsip</span></span></span></span>
+        <div class="meta m-item-extra">ID-003 · diperbarui minggu lalu<br>Keterangan tambahan item 3.</div>
+        <a class="btn btn-sm secondary m-item-extra" style="margin-top:8px" href="#">Lihat detail</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Tabel → kartu (§3.2) -->
+  <h2 class="section-title">Tabel responsif</h2>
+  <div class="panel flush">
+    <p class="chart-title" style="padding:16px 16px 0">Desktop: tabel · Mobile: kartu lipat</p>
+    <table class="data-table">
+      <thead><tr><th>Nama</th><th>Status</th><th>Kode</th><th></th></tr></thead>
+      <tbody>
+        <tr class="m-row" aria-expanded="false">
+          <td class="td-primary"><span class="m-item-title"><span>Baris contoh 1<span class="m-collapsed-extra"><span class="m-dot bad"></span><span class="badge danger">Gagal</span></span></span></span><span class="m-item-extra" style="font-size:12px;color:var(--color-text-muted)">Terakhir gagal 2 jam lalu — perlu tindakan.</span></td>
+          <td><span class="badge danger">Gagal</span></td>
+          <td class="mono" style="font-size:13px">ID-001</td>
+          <td><a class="btn btn-sm secondary m-item-extra" href="#">Detail</a></td>
+        </tr>
+        <tr class="m-row" aria-expanded="false">
+          <td class="td-primary"><span class="m-item-title"><span>Baris contoh 2<span class="m-collapsed-extra"><span class="m-dot ok"></span><span class="badge success">Aktif</span></span></span></span><span class="m-item-extra" style="font-size:12px;color:var(--color-text-muted)">Berjalan normal.</span></td>
+          <td><span class="badge success">Aktif</span></td>
+          <td class="mono" style="font-size:13px">ID-002</td>
+          <td><a class="btn btn-sm secondary m-item-extra" href="#">Detail</a></td>
+        </tr>
+        <tr class="m-row" aria-expanded="false">
+          <td class="td-primary"><span class="m-item-title"><span>Baris contoh 3<span class="m-collapsed-extra"><span class="badge blue">Info</span></span></span></span><span class="m-item-extra" style="font-size:12px;color:var(--color-text-muted)">Menunggu proses berikutnya.</span></td>
+          <td><span class="badge blue">Info</span></td>
+          <td class="mono" style="font-size:13px">ID-003</td>
+          <td><a class="btn btn-sm secondary m-item-extra" href="#">Detail</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Filter collapsible (§3.3) -->
+  <h2 class="section-title">Filter</h2>
+  <div class="panel">
+    <button class="m-filter-head" data-toggle="tpl-filter" aria-expanded="false"><span>Filter</span><span class="m-filter-head-count"></span></button>
+    <div class="m-filter-more" id="tpl-filter" style="margin-top:8px">
+      <div class="filter-row">
+        <input placeholder="Cari…" aria-label="Cari" enterkeyhint="search">
+        <select aria-label="Status"><option value="">Semua status</option><option>Aktif</option><option>Gagal</option><option>Arsip</option></select>
+        <select aria-label="Urutkan"><option value="">Urutkan: Terbaru</option><option>Terlama</option><option>Nama A–Z</option></select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulir (§4.6) -->
+  <h2 class="section-title">Formulir</h2>
+  <div class="panel">
+    <form id="tplForm">
+      <div class="field">
+        <label for="f-nama">Nama</label>
+        <input id="f-nama" placeholder="Nama item…" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="f-status">Status</label>
+        <select id="f-status"><option>Aktif</option><option>Menunggu</option><option>Arsip</option></select>
+      </div>
+      <div class="field">
+        <label for="f-catatan">Catatan</label>
+        <textarea id="f-catatan" rows="3" placeholder="Keterangan tambahan…"></textarea>
+        <p class="hint">Input otomatis 16px di mobile agar iOS tidak auto-zoom.</p>
+      </div>
+      <div class="m-sticky-actions">
+        <button class="btn secondary" type="reset">Atur ulang</button>
+        <button class="btn" type="submit">Simpan</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Badge & tombol (§4.1–§4.2) -->
+  <h2 class="section-title">Badge &amp; tombol</h2>
+  <div class="panel">
+    <p><span class="badge success">Aktif</span> <span class="badge danger">Gagal</span> <span class="badge gray">Arsip</span> <span class="badge blue">Info</span></p>
+    <p><button class="btn" type="button">Primer</button> <button class="btn secondary" type="button">Sekunder</button> <button class="btn danger-btn" type="button">Berbahaya</button></p>
+  </div>
+
+  <!-- Dialog & toast (§3.4, §4.7) -->
+  <h2 class="section-title">Dialog &amp; notifikasi</h2>
+  <div class="panel">
+    <p class="chart-title">mConfirm: tengah di desktop · bottom-sheet di mobile</p>
+    <p>
+      <button class="btn danger-btn" type="button" id="demoConfirmDanger">Konfirmasi hapus</button>
+      <button class="btn secondary" type="button" id="demoConfirmInfo">Dialog info</button>
+      <button class="btn secondary" type="button" id="demoToast">Tampilkan toast</button>
+    </p>
+  </div>
+
+  <!-- Switch & progress (§4.9–§4.10) -->
+  <h2 class="section-title">Switch &amp; progress</h2>
+  <div class="panel">
+    <p style="display:flex;align-items:center;gap:12px;font-size:14px">
+      <label class="switch"><input type="checkbox" id="demoSwitch"><span class="track"><span class="knob"></span></span></label>
+      <span>Notifikasi <b id="demoSwitchState">mati</b></span>
+    </p>
+    <p style="display:flex;align-items:center;gap:12px">
+      <span class="progress" style="flex:1"><i id="demoBar"></i></span>
+      <button class="btn btn-sm" type="button" id="demoRun">Jalankan</button>
+    </p>
+  </div>
+
+  <!-- Pagination (§4.4) -->
+  <h2 class="section-title">Pagination</h2>
+  <div class="panel">
+    <p class="chart-title">Desktop: lengkap · Mobile: ringkas ‹ aktif ›</p>
+    <div id="demoPagination"></div>
+  </div>
+
+  <!-- Panel kaca (§4.5) -->
+  <h2 class="section-title">Panel kaca</h2>
+  <div class="panel">
+    <div class="frosted-demo">
+      <div class="frosted-card">
+        <h4>Panel melayang</h4>
+        <p>Untuk menu/panel di atas konten — latar belakang tetap terbaca samar.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty state (§4.7) -->
+  <h2 class="section-title">Empty state</h2>
+  <div class="panel">
+    <div class="empty">Belum ada data.<br>Ubah filter atau tambah data baru untuk memulai.</div>
+  </div>
+
+</div>
+
+<!-- Navigasi mobile: bottom tab bar (§4.8) -->
+<nav class="tabbar" id="tabbar" aria-label="Navigasi utama">
+  <a href="#" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Beranda</a>
+  <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Data</a>
+  <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Laporan</a>
+  <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Pengaturan</a>
+</nav>
+
+<!-- FAB tema (mobile): di atas tab bar -->
+<button class="theme-fab" data-theme-toggle aria-label="Ganti tema terang/gelap">
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Dialog bottom-sheet -->
+<div class="m-confirm-overlay" id="mConfirmOverlay" role="dialog" aria-modal="true" aria-labelledby="mConfirmTitle">
+  <div class="m-confirm-box">
+    <h3 id="mConfirmTitle"></h3>
+    <p id="mConfirmMsg"></p>
+    <div class="m-confirm-actions">
+      <button class="btn" id="mConfirmOk" type="button">Ya</button>
+      <button class="btn secondary" id="mConfirmCancel" type="button">Batal</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+/* Wiring khusus halaman contoh ini (bukan bagian kontrak global) */
+(function () {
+  "use strict";
+
+  /* Pagination demo: 8 halaman, mulai di 1 */
+  var pgEl = document.getElementById("demoPagination");
+  function go(p) {
+    window.renderPagination(pgEl, p, 8, go);
+    window.showToast("Halaman " + p + " (contoh)");
+  }
+  window.renderPagination(pgEl, 1, 8, go);
+
+  /* mConfirm demo */
+  document.getElementById("demoConfirmDanger").addEventListener("click", function () {
+    window.mConfirm({ title: "Hapus item?", message: "Tindakan ini tidak bisa dibatalkan.", confirmText: "Ya, hapus", danger: true })
+      .then(function (ok) { window.showToast(ok ? "Item dihapus (contoh)" : "Dibatalkan"); });
+  });
+  document.getElementById("demoConfirmInfo").addEventListener("click", function () {
+    window.mConfirm({ title: "Info", message: "Ini dialog info — bukan aksi berbahaya.", confirmText: "Mengerti", cancelText: "Tutup", danger: false });
+  });
+  document.getElementById("demoToast").addEventListener("click", function () {
+    window.showToast("Perubahan disimpan (contoh)");
+  });
+
+  /* Form demo: konfirmasi sebelum submit */
+  document.getElementById("tplForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    window.mConfirm({ title: "Simpan?", message: "Simpan perubahan ini?", confirmText: "Ya, simpan", danger: false })
+      .then(function (ok) { if (ok) window.showToast("Tersimpan (contoh)"); });
+  });
+
+  /* Switch demo */
+  document.getElementById("demoSwitch").addEventListener("change", function (e) {
+    document.getElementById("demoSwitchState").textContent = e.target.checked ? "menyala" : "mati";
+  });
+
+  /* Progress demo */
+  document.getElementById("demoRun").addEventListener("click", function () {
+    var bar = document.getElementById("demoBar"), p = 0;
+    bar.style.width = "0";
+    var iv = setInterval(function () {
+      p += 8;
+      if (p >= 100) { p = 100; clearInterval(iv); setTimeout(function () { bar.style.width = "0"; }, 800); }
+      bar.style.width = p + "%";
+    }, 120);
+  });
+})();
+</script>
+</body>
+</html>

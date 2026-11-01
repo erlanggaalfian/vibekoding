@@ -11,6 +11,7 @@ ini ke AI agent, dan seluruh sistem langsung diterapkan ke proyek baru.
 | AI langsung menerapkan semuanya | Tunjuk repo ini / bilang **"pakai vibekoding"** → skill `vibekoding` mengatur urutannya |
 | Hanya desainnya saja | Kirim `design-system.md` ke chat |
 | Lihat contoh hidup | Buka `examples/demo.html` di browser (kecilkan ke ≤768px untuk mode mobile) |
+| Mulai aplikasi baru dari template | Salin folder `template/` → ganti palet via `examples/palette-generator.html` (panduan di `template/README.md`) |
 | Pasang satu skill saja | Salin folder skill yang diinginkan ke `~/.agents/skills/` / folder skill agenmu |
 
 ## Isi repo
@@ -22,6 +23,7 @@ ini ke AI agent, dan seluruh sistem langsung diterapkan ke proyek baru.
 | `skills/base-design-system/` | Cara menerapkan base design ke proyek web apa pun (tokens → kontrak JS → pola per halaman → verifikasi). |
 | `examples/demo.html` | Contoh mandiri, satu file tanpa dependency: mode gelap/terang (toggle di topnav desktop, FAB di atas tab bar mobile, pilihan tersimpan), navigasi responsif (top bar desktop / tab bar mobile), accordion, tabel → kartu, filter collapsible, popup `mConfirm`/`mConfirmSubmit` (tengah di desktop, bottom-sheet di mobile), blur/frosted glass, micro-interaction (toggle, progress, toast, hover-lift), badge, tombol, pagination, empty state. |
 | `examples/palette-generator.html` | **Generator palet interaktif.** Pilih warna dasar + harmoni roda warna (monokromatik/analogous/komplementer/triadik) → hasilkan seluruh token CSS, pratinjau live Terang/Gelap, salin sebagai `:root` + `[data-theme="dark"]`. |
+| `template/` | **Template starter siap-fork.** Scaffold aplikasi baru: `index.html` + `tokens.css` (terang/gelap, format output generator) + `components.css` + `app.js` (kontrak JS global) + panduan fork & ganti palet di `template/README.md`. |
 
 ## Skills
 

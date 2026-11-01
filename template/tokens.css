@@ -1,0 +1,77 @@
+/* ============================================================
+   TOKENS — Base Design System (design-system.md §2)
+   Warna dasar contoh: #0097FC · harmoni: monokromatik
+   ------------------------------------------------------------
+   CARA GANTI PALET (tanpa mengutak-atik file lain):
+   1. Buka ../examples/palette-generator.html di repo ini
+   2. Pilih warna dasar + harmoni aksen
+   3. Salin blok CSS yang dihasilkan
+   4. Tempel menggantikan SELURUH isi file ini
+   Nama token sama persis — komponen tidak perlu diubah.
+   ============================================================ */
+
+:root {
+  /* Skala primer (hue 204°) */
+  --color-primary-50: #f4f8fb;
+  --color-primary-100: #ddedf8;
+  --color-primary-200: #b6ddf7;
+  --color-primary-300: #77c4f8;
+  --color-primary-400: #38acfa;
+  --color-primary-500: #0097fc;
+  --color-primary-600: #0078c8;
+  --color-primary-700: #0060a0;
+  --color-primary-800: #004b7d;
+  --color-primary-900: #00395f;
+
+  --color-primary: var(--color-primary-500);
+  --color-primary-hover: var(--color-primary-600);
+  --color-primary-text: #16202e;
+
+  /* Aksen (monokromatik) */
+  --color-accent: #0060a0;
+
+  /* Teks */
+  --color-text-header: #1f2b33;
+  --color-text-body: #3d4d57;
+  --color-text-muted: #637683;
+
+  /* Latar */
+  --color-bg-body: #f3f5f6;
+  --color-bg-content: #ffffff;
+  --color-bg-hover: #f9fafb;
+
+  /* Status */
+  --color-success: #28bd73;  --color-success-bg: #d7f4e6;  --color-success-text: #188b52;
+  --color-danger: #db2424;   --color-danger-bg: #fbdfdf;   --color-danger-text: #981b1b;
+  --color-danger-soft-bg: #fdf2f2;
+  --color-danger-border-soft: #f6c1c1;
+  --color-info: #1392ec;  --color-info-bg: #daedfb;  --color-info-text: #0f6fb3;
+  --color-warning: #f3b116;  --color-warning-bg: #fcf3cf; --color-warning-text: #976d0c;
+
+  /* Border & garis */
+  --color-border: #dde1e4;
+  --color-metric-border: #e9ebed;
+}
+
+/* Mode gelap: <html data-theme="dark"> */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-primary: #38acfa;
+  --color-primary-hover: #77c4f8;
+  --color-primary-text: #16202e;
+  --color-accent: #0060a0;
+  --color-text-header: #ebeeef;
+  --color-text-body: #c7cdd1;
+  --color-text-muted: #96a0a6;
+  --color-bg-body: #13181b;
+  --color-bg-content: #1c2226;
+  --color-bg-hover: #252d31;
+  --color-success: #28bd73;  --color-success-bg: #183929;  --color-success-text: #99e6bf;
+  --color-danger: #db2424;   --color-danger-bg: #431919;   --color-danger-text: #ec9393;
+  --color-danger-soft-bg: #321515;
+  --color-danger-border-soft: #642b2b;
+  --color-info: #1392ec;  --color-info-bg: #142c3d;  --color-info-text: #93c7ec;
+  --color-warning: #f3b116;  --color-warning-bg: #3d3314; --color-warning-text: #f0d175;
+  --color-border: #363f45;
+  --color-metric-border: #2e3438;
+}
